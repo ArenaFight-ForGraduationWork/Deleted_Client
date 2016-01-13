@@ -3,7 +3,13 @@
 // 들어 있는 포함 파일입니다.
 //
 
-#pragma once
+#ifndef STDAFX_H_
+#define STDAFX_H_
+
+
+
+
+
 
 #include "targetver.h"
 
@@ -49,3 +55,6 @@
 #define PS_SLOT_MATERIAL		0x01
 #define PS_SLOT_TEXTURE			0x00
 #define PS_SLOT_SAMPLER_STATE	0x00
+
+
+#endif

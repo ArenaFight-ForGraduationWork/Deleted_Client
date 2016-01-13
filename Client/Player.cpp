@@ -301,9 +301,11 @@ void CPlayer::OnCameraUpdated(float fTimeElapsed)
 
 CAirplanePlayer::CAirplanePlayer(ID3D11Device *pd3dDevice)
 {
-	//비행기 메쉬를 생성한다.
-	CMesh *pAirplaneMesh = new CAirplaneMesh(pd3dDevice, 20.0f, 20.0f, 4.0f, D3DCOLOR_XRGB(0, 255, 0));
-	SetMesh(pAirplaneMesh);
+	////비행기 메쉬를 생성한다.
+	//CMesh *pAirplaneMesh = new CAirplaneMesh(pd3dDevice, 20.0f, 20.0f, 4.0f, D3DCOLOR_XRGB(0, 255, 0));
+	//SetMesh(pAirplaneMesh);
+	CMesh *pMesh = new CCubeMeshIlluminatedTextured(pd3dDevice);
+	SetMesh(pMesh);
 
 	//플레이어(비행기) 메쉬를 렌더링할 때 사용할 쉐이더를 생성한다.
 	m_pShader = new CPlayerShader();
