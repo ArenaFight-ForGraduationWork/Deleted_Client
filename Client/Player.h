@@ -95,7 +95,7 @@ public:
 
 	//카메라를 변경할 때 호출되는 함수이다.
 	CCamera *OnChangeCamera(ID3D11Device *pd3dDevice, DWORD nNewCameraMode, DWORD nCurrentCameraMode);
-	virtual void ChangeCamera(ID3D11Device *pd3dDevice, DWORD nNewCameraMode, float fTimeElapsed) { }
+	virtual void ChangeCamera(ID3D11Device *pd3dDevice, DWORD nNewCameraMode, float fTimeElapsed) = 0;
 
 	//플레이어의 카메라가 3인칭 카메라일 때 플레이어 메쉬를 렌더링한다.
 	virtual void Render(ID3D11DeviceContext *pd3dDeviceContext);

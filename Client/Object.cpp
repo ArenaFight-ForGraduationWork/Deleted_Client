@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Object.h"
+#include "Mesh.h"
 
 CMaterial::CMaterial()
 {
@@ -27,16 +28,18 @@ CTexture::CTexture(int nTextures)
 {
 	m_nReferences = 0;
 	m_nTextures = nTextures;
-	m_ppd3dsrvTextures = new ID3D11ShaderResourceView*[m_nTextures];
-	for (int i = 0; i < m_nTextures; i++) m_ppd3dsrvTextures[i] = NULL;
-	m_ppd3dSamplerStates = new ID3D11SamplerState*[m_nTextures];
-	for (int i = 0; i < m_nTextures; i++) m_ppd3dSamplerStates[i] = NULL;
 }
 
 CTexture::~CTexture()
 {
-	if (m_ppd3dsrvTextures) delete[] m_ppd3dsrvTextures;
-	if (m_ppd3dSamplerStates) delete[] m_ppd3dSamplerStates;
+	//if (m_ppd3dsrvTextures) delete[] m_ppd3dsrvTextures;
+	//if (m_ppd3dSamplerStates) delete[] m_ppd3dSamplerStates;
+	for (int i = 0; i < m_vd3dsrvTextures.size(); ++i)
+		delete m_vd3dsrvTextures[i];
+	m_vd3dsrvTextures.clear();
+	for (int i = 0; i < m_vd3dSamplerState.size(); ++i)
+		delete m_vd3dSamplerState[i];
+	m_vd3dSamplerState.clear();
 }
 
 void CTexture::AddRef()
@@ -47,22 +50,31 @@ void CTexture::AddRef()
 void CTexture::Release()
 {
 	if (m_nReferences > 0) m_nReferences--;
-	for (int i = 0; i < m_nTextures; i++)
-	{
-		if (m_ppd3dsrvTextures[i]) m_ppd3dsrvTextures[i]->Release();
-		if (m_ppd3dSamplerStates[i]) m_ppd3dSamplerStates[i]->Release();
-	}
+	//for (int i = 0; i < m_nTextures; i++)
+	//{
+	//	if (m_ppd3dsrvTextures[i]) m_ppd3dsrvTextures[i]->Release();
+	//	if (m_ppd3dSamplerStates[i]) m_ppd3dSamplerStates[i]->Release();
+	//}
+	for (int i = 0; i < m_vd3dsrvTextures.size(); ++i)
+		delete m_vd3dsrvTextures[i];
+	m_vd3dsrvTextures.clear();
+	for (int i = 0; i < m_vd3dSamplerState.size(); ++i)
+		delete m_vd3dSamplerState[i];
+	m_vd3dSamplerState.clear();
+
 	if (m_nReferences == 0) delete this;
 }
 
-void CTexture::SetTexture(int nIndex, ID3D11ShaderResourceView *pd3dsrvTexture, ID3D11SamplerState *pd3dSamplerState)
+void CTexture::SetTexture(ID3D11ShaderResourceView *pd3dsrvTexture, ID3D11SamplerState *pd3dSamplerState)
 {
-	if (m_ppd3dsrvTextures[nIndex]) m_ppd3dsrvTextures[nIndex]->Release();
-	if (m_ppd3dSamplerStates[nIndex]) m_ppd3dSamplerStates[nIndex]->Release();
-	m_ppd3dsrvTextures[nIndex] = pd3dsrvTexture;
-	m_ppd3dSamplerStates[nIndex] = pd3dSamplerState;
-	if (m_ppd3dsrvTextures[nIndex]) m_ppd3dsrvTextures[nIndex]->AddRef();
-	if (m_ppd3dSamplerStates[nIndex]) m_ppd3dSamplerStates[nIndex]->AddRef();
+	//if (m_ppd3dsrvTextures[nIndex]) m_ppd3dsrvTextures[nIndex]->Release();
+	//if (m_ppd3dSamplerStates[nIndex]) m_ppd3dSamplerStates[nIndex]->Release();
+	//m_ppd3dsrvTextures[nIndex] = pd3dsrvTexture;
+	//m_ppd3dSamplerStates[nIndex] = pd3dSamplerState;
+	//if (m_ppd3dsrvTextures[nIndex]) m_ppd3dsrvTextures[nIndex]->AddRef();
+	//if (m_ppd3dSamplerStates[nIndex]) m_ppd3dSamplerStates[nIndex]->AddRef();
+	m_vd3dsrvTextures.push_back(pd3dsrvTexture);
+	m_vd3dSamplerState.push_back(pd3dSamplerState);
 }
 
 
@@ -117,7 +129,7 @@ void CGameObject::Animate(float fTimeElapsed)
 {
 }
 
-void CGameObject::Render(ID3D11DeviceContext *pd3dDeviceContext, CCamera *pCamera)
+void CGameObject::Render(ID3D11DeviceContext *pd3dDeviceContext)
 {
 	if (m_pMesh) m_pMesh->Render(pd3dDeviceContext);
 }
@@ -207,23 +219,23 @@ void CGameObject::SetTexture(CTexture *pTexture)
 }
 
 
-
-CRotatingObject::CRotatingObject()
-{
-	m_fRotationSpeed = 15.0f;
-}
-
-CRotatingObject::~CRotatingObject()
-{
-}
-
-void CRotatingObject::Animate(float fTimeElapsed)
-{
-	CGameObject::Rotate(&m_d3dxvRotationAxis, m_fRotationSpeed * fTimeElapsed);
-}
-
-void CRotatingObject::Render(ID3D11DeviceContext *pd3dDeviceContext, CCamera *pCamera)
-{
-	CGameObject::Render(pd3dDeviceContext, pCamera);
-}
-
+//
+//CRotatingObject::CRotatingObject()
+//{
+//	m_fRotationSpeed = 15.0f;
+//}
+//
+//CRotatingObject::~CRotatingObject()
+//{
+//}
+//
+//void CRotatingObject::Animate(float fTimeElapsed)
+//{
+//	CGameObject::Rotate(&m_d3dxvRotationAxis, m_fRotationSpeed * fTimeElapsed);
+//}
+//
+//void CRotatingObject::Render(ID3D11DeviceContext *pd3dDeviceContext, CCamera *pCamera)
+//{
+//	CGameObject::Render(pd3dDeviceContext, pCamera);
+//}
+//

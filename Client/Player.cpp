@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
+#include "Mesh.h"
 
 
 CPlayer::CPlayer()
@@ -299,6 +300,13 @@ void CPlayer::OnCameraUpdated(float fTimeElapsed)
 {
 }
 
+
+
+
+
+
+
+
 CAirplanePlayer::CAirplanePlayer(ID3D11Device *pd3dDevice)
 {
 	////비행기 메쉬를 생성한다.
@@ -335,6 +343,12 @@ void CAirplanePlayer::Render(ID3D11DeviceContext *pd3dDeviceContext)
 	}
 }
 
+
+
+
+
+
+// 카메라 조정 참고용
 void CAirplanePlayer::ChangeCamera(ID3D11Device *pd3dDevice, DWORD nNewCameraMode, float fTimeElapsed)
 {
 	DWORD nCurrentCameraMode = (m_pCamera) ? m_pCamera->GetMode() : 0x00;

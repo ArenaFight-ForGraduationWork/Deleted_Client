@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Object.h"
+class CCamera;
+
 
 struct VS_CB_WORLD_MATRIX
 {

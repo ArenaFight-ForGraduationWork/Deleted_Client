@@ -1,3 +1,16 @@
+
+
+// ===========================================================================================
+//
+//
+//		CMeshIlluminated를 상속받아서 CCubeMeshIlluminatedTextured를 쓰게 되어있는데
+//		사실 CMeshIlluminated 필요 없음. 그러니 합치는게 좋겠다
+//
+//
+// ===========================================================================================
+
+
+
 #ifndef MESH_H_
 #define MESH_H_
 
@@ -14,9 +27,11 @@ public:
 	void AddRef();
 	void Release();
 
-	virtual void CreateRasterizerState(ID3D11Device *pd3dDevice);	/* 래스터라이저 상태를 생성한다 */
+	/* 래스터라이저 상태를 생성한다 */
+	virtual void CreateRasterizerState(ID3D11Device *pd3dDevice);
 
-	virtual void Render(ID3D11DeviceContext *pd3dDeviceContext);	/* 정점 데이터를 렌더링한다 */
+	/* 정점 데이터를 렌더링한다 */
+	virtual void Render(ID3D11DeviceContext *pd3dDeviceContext);
 
 protected:
 	ID3D11Buffer *m_pd3dVertexBuffer;	/* 정점 버퍼 인터페이스 포인터. 정점 데이터 저장용 */
@@ -49,7 +64,8 @@ public:
 	virtual void Render(ID3D11DeviceContext *pd3dImmediateDeviceContext);
 
 protected:
-	void CalculateVertexNormal(BYTE *pVertices, WORD *pIndices);	/* 정점의 법선 벡터 계산. 정점 데이터와 인덱스 데이터 사용 */
+	/* 정점의 법선 벡터 계산. 정점 데이터와 인덱스 데이터 사용 */
+	void CalculateVertexNormal(BYTE *pVertices, WORD *pIndices);
 
 private:
 	void SetTriAngleListVertexNormal(BYTE *pVertices);	/* 정점의 법선 벡터 계산. 인덱스 버퍼를 쓰지 않는 삼각형 리스트용 */

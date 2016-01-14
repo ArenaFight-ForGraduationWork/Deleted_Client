@@ -267,6 +267,7 @@ void CGameFramework::BuildObjects()
 {
 	m_pScene = new CScene();
 
+	//m_nPlayers = 0;
 	m_nPlayers = 1;
 	m_ppPlayers = new CPlayer*[m_nPlayers];
 

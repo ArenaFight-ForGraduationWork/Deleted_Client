@@ -117,8 +117,8 @@ void CShader::UpdateShaderVariables(ID3D11DeviceContext *pd3dDeviceContext, MATE
 }
 void CShader::UpdateShaderVariables(ID3D11DeviceContext *pd3dDeviceContext, CTexture *pTexture)
 {
-	pd3dDeviceContext->PSSetShaderResources(PS_SLOT_TEXTURE, pTexture->m_nTextures, pTexture->m_ppd3dsrvTextures);
-	pd3dDeviceContext->PSSetSamplers(PS_SLOT_SAMPLER_STATE, pTexture->m_nTextures, pTexture->m_ppd3dSamplerStates);
+	pd3dDeviceContext->PSSetShaderResources(PS_SLOT_TEXTURE, pTexture->getNumOfTextures(), pTexture->getShaderResourceViewTextures());
+	pd3dDeviceContext->PSSetSamplers(PS_SLOT_SAMPLER_STATE, pTexture->getNumOfTextures(), pTexture->getSamplerState());
 }
 
 
@@ -135,7 +135,7 @@ void CShader::Render(ID3D11DeviceContext *pd3dDeviceContext, CCamera *pCamera)
 	{
 		// ¿©±â
 		if (m_ppObjects[j]->m_pMaterial)
-			UpdateShaderVariables(pd3dDeviceContext, &m_ppObjects[j]->m_pMaterial->m_Material);
+			UpdateShaderVariables(pd3dDeviceContext, &m_ppObjects[j]->m_pMaterial->getMaterial());
 		if (m_ppObjects[j]->m_pTexture) 
 			UpdateShaderVariables(pd3dDeviceContext, m_ppObjects[j]->m_pTexture);
 		UpdateShaderVariables(pd3dDeviceContext, &m_ppObjects[j]->m_d3dxmtxWorld);
