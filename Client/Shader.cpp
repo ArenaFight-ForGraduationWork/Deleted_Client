@@ -112,7 +112,7 @@ void CShader::UpdateShaderVariables(ID3D11DeviceContext *pd3dDeviceContext, D3DX
 	pd3dDeviceContext->Unmap(m_pd3dcbWorldMatrix, 0);
 	pd3dDeviceContext->VSSetConstantBuffers(VS_SLOT_WORLD_MATRIX, 1, &m_pd3dcbWorldMatrix);
 }
-void CShader::UpdateShaderVariables(ID3D11DeviceContext *pd3dDeviceContext, MATERIAL *pMaterial)
+void CShader::UpdateShaderVariables(ID3D11DeviceContext *pd3dDeviceContext, CMaterial *pMaterial)
 {
 }
 void CShader::UpdateShaderVariables(ID3D11DeviceContext *pd3dDeviceContext, CTexture *pTexture)
@@ -135,7 +135,7 @@ void CShader::Render(ID3D11DeviceContext *pd3dDeviceContext, CCamera *pCamera)
 	{
 		// ¿©±â
 		if (m_ppObjects[j]->m_pMaterial)
-			UpdateShaderVariables(pd3dDeviceContext, m_ppObjects[j]->m_pMaterial->getMaterial());
+			UpdateShaderVariables(pd3dDeviceContext, m_ppObjects[j]->m_pMaterial);
 		if (m_ppObjects[j]->m_pTexture) 
 			UpdateShaderVariables(pd3dDeviceContext, m_ppObjects[j]->m_pTexture);
 		UpdateShaderVariables(pd3dDeviceContext, &m_ppObjects[j]->m_d3dxmtxWorld);
