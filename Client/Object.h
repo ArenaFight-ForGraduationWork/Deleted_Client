@@ -30,11 +30,11 @@ public:
 	void AddRef();
 	void Release();
 
-	MATERIAL getMaterial() { return m_Material; }
+	MATERIAL* getMaterial() { return m_Material; }
 
 private:
 	int m_nReferences;
-	MATERIAL m_Material;
+	MATERIAL* m_Material;
 };
 
 class CTexture
