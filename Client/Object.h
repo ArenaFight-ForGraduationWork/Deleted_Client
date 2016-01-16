@@ -13,6 +13,7 @@ class CMesh;
 
 
 
+/* 재질 관련 정보를 표현 */
 struct MATERIAL
 {
 	D3DXCOLOR m_d3dxcAmbient;
@@ -37,6 +38,10 @@ private:
 	MATERIAL* m_Material;
 };
 
+
+
+
+
 class CTexture
 {
 public:
@@ -46,7 +51,8 @@ public:
 	void AddRef();
 	void Release();
 
-	void SetTexture(ID3D11ShaderResourceView *pd3dsrvTexture, ID3D11SamplerState *pd3dSamplerState);
+	/* nIndex번째 인덱스 자리에 텍스쳐를 설정한다 */
+	void SetTexture(int nIndex, ID3D11ShaderResourceView *pd3dsrvTexture, ID3D11SamplerState *pd3dSamplerState);
 
 	int getNumOfTextures() { return m_nTextures; }
 
@@ -78,63 +84,59 @@ public:
 	CGameObject();
 	virtual ~CGameObject();
 
-	//객체의 위치를 설정한다.
-	virtual void SetPosition(float x, float y, float z);
-	virtual void SetPosition(D3DXVECTOR3 d3dxvPosition);
-
-	//로컬 x-축, y-축, z-축 방향으로 이동한다.
-	virtual void MoveStrafe(float fDistance = 1.0f);
-	virtual void MoveUp(float fDistance = 1.0f);
-	virtual void MoveForward(float fDistance = 1.0f);
-
-	//로컬 x-축, y-축, z-축 방향으로 회전한다.
-	virtual void Rotate(float fPitch = 10.0f, float fYaw = 10.0f, float fRoll = 10.0f);
-	virtual void Rotate(D3DXVECTOR3 *pd3dxvAxis, float fAngle);
-
-	//객체의 위치, 로컬 x-축, y-축, z-축 방향 벡터를 반환한다.
-	D3DXVECTOR3 GetPosition();
-	D3DXVECTOR3 GetLookAt();
-	D3DXVECTOR3 GetUp();
-	D3DXVECTOR3 GetRight();
-private:
-	int m_nReferences;
-public:
 	void AddRef();
 	void Release();
 
-	D3DXMATRIX m_d3dxmtxWorld;
-	CMesh *m_pMesh;
-	CMaterial *m_pMaterial;
-	CTexture *m_pTexture;
-	void SetTexture(CTexture *pTexture);
+	virtual void SetPosition(float x, float y, float z);
+	virtual void SetPosition(D3DXVECTOR3 d3dxvPosition);
 
-	virtual void SetMesh(CMesh *pMesh);
+	/* 로컬 x축 방향으로 이동한다 */
+	virtual void MoveStrafe(float fDistance = 1.0f);
+	/* 로컬 y축 방향으로 이동한다 */
+	virtual void MoveUp(float fDistance = 1.0f);
+	/* 로컬 z축 방향으로 이동한다 */
+	virtual void MoveForward(float fDistance = 1.0f);
+
+	/* x축(Pitch), y축(Yaw), z축(Roll)방향으로 지정값만큼 회전한다 */
+	virtual void Rotate(float fPitch = 10.0f, float fYaw = 10.0f, float fRoll = 10.0f);
+	/* pd3dxvAxis를 축으로 fAngle만큼 회전한다 */
+	virtual void Rotate(D3DXVECTOR3 *pd3dxvAxis, float fAngle);
+
+	D3DXVECTOR3 GetPosition();
+
+	/* 객체의 로컬 x축 방향벡터를 반환한다 */
+	D3DXVECTOR3 GetRight();
+	/* 객체의 로컬 y축 방향벡터를 반환한다 */
+	D3DXVECTOR3 GetUp();
+	/* 객체의 로컬 z축 방향벡터를 반환한다 */
+	D3DXVECTOR3 GetLookAt();
+
+	///* 객체의 월드변환행렬을 설정한다 */
+	//void SetWorldMatrix(D3DXMATRIX* pMtx) { m_d3dxmtxWorld = *pMtx; }
+	/* 객체의 월드변환행렬을 반환한다 */
+	D3DXMATRIX* GetWorldMatrix() { return &m_d3dxmtxWorld; }
+
+	void SetMesh(CMesh *pMesh);
+	CMesh* GetMesh() { return m_pMesh; }
 	void SetMaterial(CMaterial *pMaterial);
+	CMaterial* GetMaterial() { return m_pMaterial; }
+	void SetTexture(CTexture *pTexture);
+	CTexture* GetTexture() { return m_pTexture; }
+
 	virtual void Animate(float fTimeElapsed);
 	virtual void Render(ID3D11DeviceContext *pd3dDeviceContext);
+
+protected:
+	D3DXMATRIX m_d3dxmtxWorld;	/* 월드 변환 행렬 */
+	CMesh *m_pMesh;
+
+private:
+	int m_nReferences;
+
+	CMaterial *m_pMaterial;
+	CTexture *m_pTexture;
 };
 
-
-
-
-//class CRotatingObject : public CGameObject
-//{
-//public:
-//	CRotatingObject();
-//	virtual ~CRotatingObject();
-//
-//	virtual void Animate(float fTimeElapsed);
-//	virtual void Render(ID3D11DeviceContext *pd3dDeviceContext, CCamera *pCamera);
-//
-//	//자전 속도와 회전축 벡터를 설정하는 함수이다.
-//	void SetRotationSpeed(float fRotationSpeed) { m_fRotationSpeed = fRotationSpeed; }
-//	void SetRotationAxis(D3DXVECTOR3 d3dxvRotationAxis) { m_d3dxvRotationAxis = d3dxvRotationAxis; }
-//
-//private:
-//	//자전 속도와 회전축 벡터를 나타내는 멤버 변수를 선언한다.
-//	float m_fRotationSpeed;
-//	D3DXVECTOR3 m_d3dxvRotationAxis;
-//};
 
 
 

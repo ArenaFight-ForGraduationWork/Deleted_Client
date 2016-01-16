@@ -2,6 +2,10 @@
 #include "Object.h"
 #include "Mesh.h"
 
+
+
+
+
 CMaterial::CMaterial()
 {
 	m_nReferences = 0;
@@ -24,16 +28,21 @@ void CMaterial::Release()
 
 
 
+
+
 CTexture::CTexture(int nTextures)
 {
 	m_nReferences = 0;
 	m_nTextures = nTextures;
+	for (short i = 0; i < m_nTextures; ++i)
+	{
+		m_vd3dsrvTextures.push_back(nullptr);
+		m_vd3dSamplerState.push_back(nullptr);
+	}
 }
 
 CTexture::~CTexture()
 {
-	//if (m_ppd3dsrvTextures) delete[] m_ppd3dsrvTextures;
-	//if (m_ppd3dSamplerStates) delete[] m_ppd3dSamplerStates;
 	for (int i = 0; i < m_vd3dsrvTextures.size(); ++i)
 		delete m_vd3dsrvTextures[i];
 	m_vd3dsrvTextures.clear();
@@ -50,11 +59,6 @@ void CTexture::AddRef()
 void CTexture::Release()
 {
 	if (m_nReferences > 0) m_nReferences--;
-	//for (int i = 0; i < m_nTextures; i++)
-	//{
-	//	if (m_ppd3dsrvTextures[i]) m_ppd3dsrvTextures[i]->Release();
-	//	if (m_ppd3dSamplerStates[i]) m_ppd3dSamplerStates[i]->Release();
-	//}
 	for (int i = 0; i < m_vd3dsrvTextures.size(); ++i)
 		delete m_vd3dsrvTextures[i];
 	m_vd3dsrvTextures.clear();
@@ -65,18 +69,16 @@ void CTexture::Release()
 	if (m_nReferences == 0) delete this;
 }
 
-void CTexture::SetTexture(ID3D11ShaderResourceView *pd3dsrvTexture, ID3D11SamplerState *pd3dSamplerState)
+void CTexture::SetTexture(int nIndex, ID3D11ShaderResourceView *pd3dsrvTexture, ID3D11SamplerState *pd3dSamplerState)
 {
-	//if (m_ppd3dsrvTextures[nIndex]) m_ppd3dsrvTextures[nIndex]->Release();
-	//if (m_ppd3dSamplerStates[nIndex]) m_ppd3dSamplerStates[nIndex]->Release();
-	//m_ppd3dsrvTextures[nIndex] = pd3dsrvTexture;
-	//m_ppd3dSamplerStates[nIndex] = pd3dSamplerState;
-	//if (m_ppd3dsrvTextures[nIndex]) m_ppd3dsrvTextures[nIndex]->AddRef();
-	//if (m_ppd3dSamplerStates[nIndex]) m_ppd3dSamplerStates[nIndex]->AddRef();
-	m_vd3dsrvTextures.push_back(pd3dsrvTexture);
-	m_vd3dSamplerState.push_back(pd3dSamplerState);
-}
+	if (m_vd3dsrvTextures[nIndex]) m_vd3dsrvTextures[nIndex]->Release();
+	m_vd3dsrvTextures[nIndex] = pd3dsrvTexture;
+	if (m_vd3dsrvTextures[nIndex]) m_vd3dsrvTextures[nIndex]->AddRef();
 
+	if (m_vd3dSamplerState[nIndex]) m_vd3dSamplerState[nIndex]->Release();
+	m_vd3dSamplerState[nIndex] = pd3dSamplerState;
+	if (m_vd3dSamplerState[nIndex]) m_vd3dSamplerState[nIndex]->AddRef();
+}
 
 
 
@@ -85,9 +87,10 @@ void CTexture::SetTexture(ID3D11ShaderResourceView *pd3dsrvTexture, ID3D11Sample
 CGameObject::CGameObject()
 {
 	D3DXMatrixIdentity(&m_d3dxmtxWorld);
-	m_pMesh = NULL;
-	m_pMaterial = NULL;
-	m_pTexture = NULL;
+
+	m_pMesh = nullptr;
+	m_pMaterial = nullptr;
+	m_pTexture = nullptr;
 
 	m_nReferences = 1;
 }
@@ -98,7 +101,6 @@ CGameObject::~CGameObject()
 	if (m_pMaterial) m_pMaterial->Release();
 	if (m_pTexture) m_pTexture->Release();
 }
-
 
 void CGameObject::AddRef()
 {
@@ -219,23 +221,3 @@ void CGameObject::SetTexture(CTexture *pTexture)
 }
 
 
-//
-//CRotatingObject::CRotatingObject()
-//{
-//	m_fRotationSpeed = 15.0f;
-//}
-//
-//CRotatingObject::~CRotatingObject()
-//{
-//}
-//
-//void CRotatingObject::Animate(float fTimeElapsed)
-//{
-//	CGameObject::Rotate(&m_d3dxvRotationAxis, m_fRotationSpeed * fTimeElapsed);
-//}
-//
-//void CRotatingObject::Render(ID3D11DeviceContext *pd3dDeviceContext, CCamera *pCamera)
-//{
-//	CGameObject::Render(pd3dDeviceContext, pCamera);
-//}
-//

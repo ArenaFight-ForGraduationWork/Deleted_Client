@@ -134,11 +134,11 @@ void CShader::Render(ID3D11DeviceContext *pd3dDeviceContext, CCamera *pCamera)
 	for (int j = 0; j < m_nObjects; j++)
 	{
 		// ¿©±â
-		if (m_ppObjects[j]->m_pMaterial)
-			UpdateShaderVariables(pd3dDeviceContext, m_ppObjects[j]->m_pMaterial);
-		if (m_ppObjects[j]->m_pTexture) 
-			UpdateShaderVariables(pd3dDeviceContext, m_ppObjects[j]->m_pTexture);
-		UpdateShaderVariables(pd3dDeviceContext, &m_ppObjects[j]->m_d3dxmtxWorld);
+		if (m_ppObjects[j]->GetMaterial())
+			UpdateShaderVariables(pd3dDeviceContext, m_ppObjects[j]->GetMaterial());
+		if (m_ppObjects[j]->GetTexture())
+			UpdateShaderVariables(pd3dDeviceContext, m_ppObjects[j]->GetTexture());
+		UpdateShaderVariables(pd3dDeviceContext, m_ppObjects[j]->GetWorldMatrix());
 		m_ppObjects[j]->Render(pd3dDeviceContext);
 
 		//UpdateShaderVariables(pd3dDeviceContext, &m_ppObjects[j]->m_d3dxmtxWorld);
