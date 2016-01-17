@@ -114,7 +114,7 @@ public:
 	///* 객체의 월드변환행렬을 설정한다 */
 	//void SetWorldMatrix(D3DXMATRIX* pMtx) { m_d3dxmtxWorld = *pMtx; }
 	/* 객체의 월드변환행렬을 반환한다 */
-	D3DXMATRIX* GetWorldMatrix() { return &m_d3dxmtxWorld; }
+	D3DXMATRIX* GetWorldMatrix() { return m_d3dxmtxWorld; }
 
 	void SetMesh(CMesh *pMesh);
 	CMesh* GetMesh() { return m_pMesh; }
@@ -127,7 +127,7 @@ public:
 	virtual void Render(ID3D11DeviceContext *pd3dDeviceContext);
 
 protected:
-	D3DXMATRIX m_d3dxmtxWorld;	/* 월드 변환 행렬 */
+	D3DXMATRIX *m_d3dxmtxWorld;	/* 월드 변환 행렬 */
 	CMesh *m_pMesh;
 
 private:
