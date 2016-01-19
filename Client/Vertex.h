@@ -31,9 +31,9 @@ public:
 	CNormalVertex() { m_d3dxvPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f); m_d3dxvNormal = D3DXVECTOR3(0.0f, 0.0f, 0.0f); }
 	~CNormalVertex() { }
 
-	void setNormal(float x, float y, float z) { m_d3dxvNormal = D3DXVECTOR3(x, y, z); }
-	void setNormal(D3DXVECTOR3 d3dxvNormal) { m_d3dxvNormal = d3dxvNormal; }
-	D3DXVECTOR3 getNormal() { return m_d3dxvNormal; }
+	void SetNormal(float x, float y, float z) { m_d3dxvNormal = D3DXVECTOR3(x, y, z); }
+	void SetNormal(D3DXVECTOR3 d3dxvNormal) { m_d3dxvNormal = d3dxvNormal; }
+	D3DXVECTOR3 GetNormal() { return m_d3dxvNormal; }
 
 private:
 	D3DXVECTOR3 m_d3dxvPosition;
