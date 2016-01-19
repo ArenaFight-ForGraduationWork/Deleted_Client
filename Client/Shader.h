@@ -38,7 +38,7 @@ public:
 
 	ID3D11GeometryShader *m_pd3dGeometryShader;
 
-	CGameObject **m_ppObjects;
+	CObject **m_ppObjects;
 	int m_nObjects;
 
 	ID3D11Buffer *m_pd3dcbWorldMatrix;

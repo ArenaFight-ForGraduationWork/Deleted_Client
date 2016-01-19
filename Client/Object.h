@@ -78,11 +78,11 @@ private:
 
 
 
-class CGameObject
+class CObject
 {
 public:
-	CGameObject();
-	virtual ~CGameObject();
+	CObject();
+	virtual ~CObject();
 
 	void AddRef();
 	void Release();

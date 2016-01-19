@@ -187,7 +187,7 @@ void CDiffusedShader::BuildObjects(ID3D11Device *pd3dDevice)
 
 	//int xObjects = 6, yObjects = 6, zObjects = 6, i = 0;
 	//m_nObjects = (xObjects + ((xObjects % 2) ? 0 : 1)) * (yObjects + ((yObjects % 2) ? 0 : 1)) * (zObjects + ((zObjects % 2) ? 0 : 1));
-	//m_ppObjects = new CGameObject*[m_nObjects];
+	//m_ppObjects = new CObject*[m_nObjects];
 
 	//float fxPitch = 12.0f * 1.7f;
 	//float fyPitch = 12.0f * 1.7f;
@@ -317,7 +317,7 @@ void CIlluminatedShader::BuildObjects(ID3D11Device *pd3dDevice)
 
 	//int xObjects = 5, yObjects = 5, zObjects = 5, i = 0;
 	//m_nObjects = (xObjects + 1) * (yObjects + 1) * (zObjects + 1);
-	//m_ppObjects = new CGameObject*[m_nObjects];
+	//m_ppObjects = new CObject*[m_nObjects];
 
 	//float fxPitch = 12.0f * 1.7f;
 	//float fyPitch = 12.0f * 1.7f;
@@ -399,7 +399,7 @@ void CTexturedShader::BuildObjects(ID3D11Device *pd3dDevice)
 	////텍스쳐 맵핑된 직육면체와 조명과 텍스쳐 맵핑을 사용한 직육면체를 교대로 배치할 것이다.
 	//int xObjects = 3, yObjects = 3, zObjects = 3, i = 0, nObjectTypes = 2;
 	//m_nObjects = ((xObjects * 2) + 1) * ((yObjects * 2) + 1) * ((zObjects * 2) + 1);
-	//m_ppObjects = new CGameObject*[m_nObjects];
+	//m_ppObjects = new CObject*[m_nObjects];
 
 	//float fxPitch = 12.0f * 1.7f;
 	//float fyPitch = 12.0f * 1.7f;
@@ -499,7 +499,7 @@ void CIlluminatedTexturedShader::BuildObjects(ID3D11Device *pd3dDevice)
 
 	//int xObjects = 3, yObjects = 3, zObjects = 3, i = 0, nObjectTypes = 2;
 	//m_nObjects = ((xObjects * 2) + 1) * ((yObjects * 2) + 1) * ((zObjects * 2) + 1);
-	//m_ppObjects = new CGameObject*[m_nObjects];
+	//m_ppObjects = new CObject*[m_nObjects];
 
 	//float fxPitch = 12.0f * 1.7f;
 	//float fyPitch = 12.0f * 1.7f;
