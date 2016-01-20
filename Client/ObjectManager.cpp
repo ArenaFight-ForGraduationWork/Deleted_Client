@@ -23,7 +23,10 @@ CObjectManager* CObjectManager::GetSingleton()
 
 void CObjectManager::Insert(int x, int y, int z, int dx, int dy, int dz)
 {
-
+	CObject *pObject = new CObject(/*id*/0);
+	pObject->SetPosition(x, y, z);
+	/* ¾Ñ setdirectionÀÌ ¾ø´Ù */
+	m_mObjectList[0].push_back(pObject);
 }
 void CObjectManager::Insert(D3DXVECTOR3 position, D3DXVECTOR3 direction)
 {
