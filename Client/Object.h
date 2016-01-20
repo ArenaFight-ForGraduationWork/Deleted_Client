@@ -81,7 +81,7 @@ private:
 class CObject
 {
 public:
-	CObject();
+	CObject(unsigned int id);
 	virtual ~CObject();
 
 	void AddRef();
@@ -135,6 +135,10 @@ private:
 
 	CMaterial *m_pMaterial;
 	CTexture *m_pTexture;
+
+	unsigned int m_id;
+	// hp, mp, atk, def, ...
+
 };
 
 

@@ -84,7 +84,7 @@ void CTexture::SetTexture(int nIndex, ID3D11ShaderResourceView *pd3dsrvTexture, 
 
 
 
-CObject::CObject()
+CObject::CObject(unsigned int id)
 {
 	m_d3dxmtxWorld = new D3DXMATRIX();
 	D3DXMatrixIdentity(m_d3dxmtxWorld);
@@ -94,6 +94,8 @@ CObject::CObject()
 	m_pTexture = nullptr;
 
 	m_nReferences = 1;
+
+	m_id = id;
 }
 
 CObject::~CObject()
