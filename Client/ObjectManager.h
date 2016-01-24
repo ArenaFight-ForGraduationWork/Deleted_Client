@@ -11,6 +11,11 @@
 *		2) BUFF_CRYSTAL 
 *			이름이 맘에 안 든다. 포괄적인 이름이 필요하다.
 *			충돌체크X, 존재O인 물체
+*
+*		id 형식 아직 미정이라 내 맘대로 UINT 하나로 쓰는거 함
+*			UINT = 0~4G 정도
+*		몬스터 2xx00, 사람 3xx00으로 그냥 해놓음 id 하나로 타입까지 한방에.
+*		나중에 바뀌는대로 바꿔라....
 */
 
 
@@ -21,17 +26,17 @@ public:
 	~CObjectManager();
 
 	/* ~데이터를 가진 오브젝트를 추가 */
-	void Insert(int x, int y, int z, int dx, int dy, int dz);
-	void Insert(D3DXVECTOR3 position, D3DXVECTOR3 direction);
+	void Insert(UINT id, int x, int y, int z, int dx, int dy, int dz);
+	void Insert(UINT id, D3DXVECTOR3 position, D3DXVECTOR3 direction);
 
 	/* 전체 오브젝트 중에서 해당 id를 가진 오브젝트를 찾는다 */
-	CObject* FindObject(int id);
+	CObject* FindObject(UINT id);
 
 	/* 오브젝트 카테고리 중 id번째 카테고리의 오브젝트들을 반환한다 */
-	const std::vector<CObject*> FindObjectInCategory(int id) const;
+	const std::vector<CObject*> FindObjectInCategory(const UINT id);
 
 	/* id ?의 오브젝트를 삭제 */
-	void DeleteObject(int id);
+	void DeleteObject(UINT id);
 
 	/* 현재 가지고 있는 모든 오브젝트를 삭제 */
 	void DeleteObjectAll();

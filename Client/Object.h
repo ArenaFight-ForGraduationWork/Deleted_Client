@@ -81,11 +81,13 @@ private:
 class CObject
 {
 public:
-	CObject(unsigned int id);
+	CObject(UINT id);
 	virtual ~CObject();
 
 	void AddRef();
 	void Release();
+
+	UINT GetId() { return m_id; }
 
 	virtual void SetPosition(float x, float y, float z);
 	virtual void SetPosition(D3DXVECTOR3 d3dxvPosition);
@@ -136,7 +138,7 @@ private:
 	CMaterial *m_pMaterial;
 	CTexture *m_pTexture;
 
-	unsigned int m_id;
+	UINT m_id;
 	// hp, mp, atk, def, ...
 
 };

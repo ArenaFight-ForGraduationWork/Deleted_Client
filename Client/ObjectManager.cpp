@@ -21,30 +21,63 @@ CObjectManager* CObjectManager::GetSingleton()
 	return &instance;
 }
 
-void CObjectManager::Insert(int x, int y, int z, int dx, int dy, int dz)
+void CObjectManager::Insert(UINT id, int x, int y, int z, int dx, int dy, int dz)
 {
-	CObject *pObject = new CObject(/*id*/0);
+	/* id관련 설명은 ObjectManager헤더파일 맨 위를 참고 */
+	CObject *pObject = new CObject(id);
 	pObject->SetPosition(x, y, z);
 	/* 앗 setdirection이 없다 */
-	m_mObjectList[0].push_back(pObject);
+	m_mObjectList[id / 10000].push_back(pObject);
 }
-void CObjectManager::Insert(D3DXVECTOR3 position, D3DXVECTOR3 direction)
+void CObjectManager::Insert(UINT id, D3DXVECTOR3 position, D3DXVECTOR3 direction)
 {
+	/* id관련 설명은 ObjectManager헤더파일 맨 위를 참고 */
+	CObject *pObject = new CObject(id);
+	pObject->SetPosition(position);
+	/* 앗 setdirection이 없다 */
+	m_mObjectList[id / 10000].push_back(pObject);
+
 }
 
-	///* ~데이터를 가진 오브젝트를 추가 */
-	//void Insert(int x, int y, int z, int dx, int dy, int dz);
-	//void Insert(D3DXVECTOR3 position, D3DXVECTOR3 direction);
+CObject* CObjectManager::FindObject(UINT id)
+{
+	for (auto obj : m_mObjectList[id / 10000])
+	{
+		if (id == obj->GetId())
+			return obj;
+	}
+}
 
-	///* 전체 오브젝트 중에서 해당 id를 가진 오브젝트를 찾는다 */
-	//CObject* FindObject(int id);
+const std::vector<CObject*> CObjectManager::FindObjectInCategory(const UINT id)
+{
+	return m_mObjectList[id / 10000];
+}
 
-	///* 오브젝트 카테고리 중 id번째 카테고리의 오브젝트들을 반환한다 */
-	//const std::vector<CObject*> FindObjectInCategory(int id) const;
+void CObjectManager::DeleteObject(UINT id)
+{
+	for (short i = 0; i < m_mObjectList[id / 10000].size(); ++i)
+	{
+		if (id == m_mObjectList[id / 10000][i]->GetId())
+		{
+			CObject *pObject = m_mObjectList[id / 10000][i];
+			m_mObjectList[id / 10000].erase(m_mObjectList[id / 10000].begin() + i);
+			pObject->Release();
+			pObject->~CObject();
+		}
 
-	///* id ?의 오브젝트를 삭제 */
-	//void DeleteObject(int id);
+	}
+}
 
-	///* 현재 가지고 있는 모든 오브젝트를 삭제 */
-	//void DeleteObjectAll();
-
+void CObjectManager::DeleteObjectAll()
+{
+	for (short i = 0; i < m_mObjectList.size(); ++i)
+	{
+		for (auto obj : m_mObjectList[i])
+		{
+			obj->Release();
+			obj->~CObject();
+		}
+		m_mObjectList[i].clear();
+	}
+	m_mObjectList.clear();
+}
