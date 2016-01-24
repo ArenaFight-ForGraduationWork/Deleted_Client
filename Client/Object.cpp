@@ -93,8 +93,6 @@ CObject::CObject(unsigned int id)
 	m_pMaterial = nullptr;
 	m_pTexture = nullptr;
 
-	m_nReferences = 1;
-
 	m_id = id;
 }
 
@@ -103,17 +101,6 @@ CObject::~CObject()
 	if (m_pMesh) m_pMesh->Release();
 	if (m_pMaterial) m_pMaterial->Release();
 	if (m_pTexture) m_pTexture->Release();
-}
-
-void CObject::AddRef()
-{
-	m_nReferences++;
-}
-
-void CObject::Release()
-{
-	if (m_nReferences > 0) m_nReferences--;
-	if (m_nReferences <= 0) delete this;
 }
 
 void CObject::SetMesh(CMesh *pMesh)

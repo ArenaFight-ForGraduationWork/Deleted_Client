@@ -61,7 +61,6 @@ void CObjectManager::DeleteObject(UINT id)
 		{
 			CObject *pObject = m_mObjectList[id / 10000][i];
 			m_mObjectList[id / 10000].erase(m_mObjectList[id / 10000].begin() + i);
-			pObject->Release();
 			pObject->~CObject();
 		}
 
@@ -74,7 +73,6 @@ void CObjectManager::DeleteObjectAll()
 	{
 		for (auto obj : m_mObjectList[i])
 		{
-			obj->Release();
 			obj->~CObject();
 		}
 		m_mObjectList[i].clear();

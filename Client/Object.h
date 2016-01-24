@@ -84,9 +84,6 @@ public:
 	CObject(UINT id);
 	virtual ~CObject();
 
-	void AddRef();
-	void Release();
-
 	UINT GetId() { return m_id; }
 
 	virtual void SetPosition(float x, float y, float z);
@@ -128,19 +125,15 @@ public:
 	virtual void Animate(float fTimeElapsed);
 	virtual void Render(ID3D11DeviceContext *pd3dDeviceContext);
 
-protected:
+private:
 	D3DXMATRIX *m_d3dxmtxWorld;	/* 월드 변환 행렬 */
 	CMesh *m_pMesh;
-
-private:
-	int m_nReferences;
 
 	CMaterial *m_pMaterial;
 	CTexture *m_pTexture;
 
 	UINT m_id;
 	// hp, mp, atk, def, ...
-
 };
 
 
