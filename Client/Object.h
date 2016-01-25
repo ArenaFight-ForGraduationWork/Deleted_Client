@@ -9,6 +9,7 @@
 #define DIR_DOWN		0x20
 
 class CMesh;
+class CShader;
 
 
 
@@ -127,8 +128,8 @@ public:
 
 private:
 	D3DXMATRIX *m_d3dxmtxWorld;	/* 월드 변환 행렬 */
-	CMesh *m_pMesh;
 
+	CMesh *m_pMesh;
 	CMaterial *m_pMaterial;
 	CTexture *m_pTexture;
 

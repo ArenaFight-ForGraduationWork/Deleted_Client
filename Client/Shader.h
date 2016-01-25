@@ -1,13 +1,22 @@
-#pragma once
+#ifndef SHADER_H_
+#define SHADER_H_
 
-#include "Object.h"
-class CCamera;
+
+
+class CMaterial;
+class CTexture;
+class CObject;
+
 
 
 struct VS_CB_WORLD_MATRIX
 {
 	D3DXMATRIX m_d3dxmtxWorld;
 };
+
+
+
+
 
 class CShader
 {
@@ -28,9 +37,9 @@ public:
 	virtual void BuildObjects(ID3D11Device *pd3dDevice);
 	virtual void ReleaseObjects();
 	virtual void AnimateObjects(float fTimeElapsed);
-	virtual void Render(ID3D11DeviceContext *pd3dDeviceContext, CCamera *pCamera = NULL);
+	virtual void Render(ID3D11DeviceContext *pd3dDeviceContext);
 
-public:
+protected:
 	ID3D11VertexShader *m_pd3dVertexShader;
 	ID3D11InputLayout *m_pd3dVertexLayout;
 
@@ -60,7 +69,7 @@ public:
 	virtual void BuildObjects(ID3D11Device *pd3dDevice);
 	virtual void ReleaseObjects();
 	virtual void AnimateObjects(float fTimeElapsed);
-	virtual void Render(ID3D11DeviceContext *pd3dDeviceContext, CCamera *pCamera = NULL);
+	virtual void Render(ID3D11DeviceContext *pd3dDeviceContext);
 };
 // 조명을 사용하여 렌더링하기 위한 CIlluminatedShader 클래스
 class CIlluminatedShader : public CShader
@@ -72,12 +81,12 @@ public:
 	virtual void CreateShader(ID3D11Device *pd3dDevice);
 	virtual void CreateShaderVariables(ID3D11Device *pd3dDevice);
 	virtual void UpdateShaderVariables(ID3D11DeviceContext *pd3dDeviceContext, D3DXMATRIX *pd3dxmtxWorld = NULL);
-	virtual void UpdateShaderVariables(ID3D11DeviceContext *pd3dDeviceContext, MATERIAL *pMaterial = NULL);
+	virtual void UpdateShaderVariables(ID3D11DeviceContext *pd3dDeviceContext, CMaterial *pMaterial = NULL);
 
 	virtual void BuildObjects(ID3D11Device *pd3dDevice);
 	virtual void ReleaseObjects();
 	virtual void AnimateObjects(float fTimeElapsed);
-	virtual void Render(ID3D11DeviceContext *pd3dDeviceContext, CCamera *pCamera = NULL);
+	virtual void Render(ID3D11DeviceContext *pd3dDeviceContext);
 };
 // 텍스쳐 맵핑을 사용하여 렌더링하기 위한 CTexturedShader 클래스
 class CTexturedShader : public CShader
@@ -112,6 +121,10 @@ public:
 	virtual void UpdateShaderVariables(ID3D11DeviceContext *pd3dDeviceContext, D3DXMATRIX *pd3dxmtxWorld = NULL);
 
 	virtual void ReleaseObjects();
-	virtual void Render(ID3D11DeviceContext *pd3dDeviceContext, CCamera *pCamera = NULL);
+	virtual void Render(ID3D11DeviceContext *pd3dDeviceContext);
 };
 
+
+
+
+#endif

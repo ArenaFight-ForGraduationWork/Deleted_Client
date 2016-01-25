@@ -1,16 +1,78 @@
-﻿빌드 시작: 2016-01-25 오전 12:05:55
+﻿빌드 시작: 2016-01-26 오전 12:37:46
      1>2 노드의 "D:\ArenaFight\Client\Client\LabProject09.vcxproj" 프로젝트(Build 대상)입니다.
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\GameClient.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp GameClient.cpp GameFramework.cpp Object.cpp ObjectManager.cpp Player.cpp Scene.cpp Shader.cpp
+         Scene.cpp
+     1>d:\arenafight\client\client\scene.h(60): error C2061: 구문 오류 : 식별자 'CCamera'
+     1>d:\arenafight\client\client\scene.cpp(78): error C2511: 'void CScene::Render(ID3D11DeviceContext *,CCamera *)' : 오버로드된 멤버 함수가 'CScene'에 없습니다.
+                 d:\arenafight\client\client\scene.h(38) : 'CScene' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\scene.cpp(79): warning C4551: 함수 호출에 인수 목록이 없습니다.
+     1>d:\arenafight\client\client\scene.cpp(79): error C2597: 비정적 멤버 'CScene::m_pLights'에 대한 참조가 잘못되었습니다.
+     1>d:\arenafight\client\client\scene.cpp(79): error C3867: 'CScene::m_pLights': 함수 호출에 인수 목록이 없습니다. '&CScene::m_pLights'을(를) 사용하여 멤버에 대한 포인터를 만드십시오.
+     1>d:\arenafight\client\client\scene.cpp(79): error C2597: 비정적 멤버 'CScene::m_pd3dcbLights'에 대한 참조가 잘못되었습니다.
+     1>d:\arenafight\client\client\scene.cpp(79): error C3867: 'CScene::m_pd3dcbLights': 함수 호출에 인수 목록이 없습니다. '&CScene::m_pd3dcbLights'을(를) 사용하여 멤버에 대한 포인터를 만드십시오.
+     1>d:\arenafight\client\client\scene.cpp(79): error C2568: '&&' : 함수 오버로드를 확인할 수 없습니다.
+                 이전 오류를 복구할 수 없습니다. 컴파일이 중지됩니다.
          Player.cpp
-     1>d:\arenafight\client\client\player.cpp(1): fatal error C1041: 프로그램 데이터베이스 'd:\arenafight\client\client\debug\vc120.pdb'을(를) 열 수 없습니다. 여러 CL.EXE에서 동일한 .PDB 파일에 쓰는 경우 /FS를 사용하십시오.
+     1>d:\arenafight\client\client\player.cpp(7): error C2512: 'CObject' : 사용할 수 있는 적절한 기본 생성자가 없습니다.
+     1>d:\arenafight\client\client\player.cpp(49): error C2248: 'CObject::m_d3dxmtxWorld' : private 멤버('CObject' 클래스에서 선언)에 액세스할 수 없습니다.
+                 d:\arenafight\client\client\object.h(130) : 'CObject::m_d3dxmtxWorld' 선언을 참조하십시오.
+                 d:\arenafight\client\client\object.h(83) : 'CObject' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\player.cpp(50): error C2248: 'CObject::m_d3dxmtxWorld' : private 멤버('CObject' 클래스에서 선언)에 액세스할 수 없습니다.
+                 d:\arenafight\client\client\object.h(130) : 'CObject::m_d3dxmtxWorld' 선언을 참조하십시오.
+                 d:\arenafight\client\client\object.h(83) : 'CObject' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\player.cpp(51): error C2248: 'CObject::m_d3dxmtxWorld' : private 멤버('CObject' 클래스에서 선언)에 액세스할 수 없습니다.
+                 d:\arenafight\client\client\object.h(130) : 'CObject::m_d3dxmtxWorld' 선언을 참조하십시오.
+                 d:\arenafight\client\client\object.h(83) : 'CObject' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\player.cpp(52): error C2248: 'CObject::m_d3dxmtxWorld' : private 멤버('CObject' 클래스에서 선언)에 액세스할 수 없습니다.
+                 d:\arenafight\client\client\object.h(130) : 'CObject::m_d3dxmtxWorld' 선언을 참조하십시오.
+                 d:\arenafight\client\client\object.h(83) : 'CObject' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\player.cpp(53): error C2248: 'CObject::m_d3dxmtxWorld' : private 멤버('CObject' 클래스에서 선언)에 액세스할 수 없습니다.
+                 d:\arenafight\client\client\object.h(130) : 'CObject::m_d3dxmtxWorld' 선언을 참조하십시오.
+                 d:\arenafight\client\client\object.h(83) : 'CObject' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\player.cpp(54): error C2248: 'CObject::m_d3dxmtxWorld' : private 멤버('CObject' 클래스에서 선언)에 액세스할 수 없습니다.
+                 d:\arenafight\client\client\object.h(130) : 'CObject::m_d3dxmtxWorld' 선언을 참조하십시오.
+                 d:\arenafight\client\client\object.h(83) : 'CObject' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\player.cpp(55): error C2248: 'CObject::m_d3dxmtxWorld' : private 멤버('CObject' 클래스에서 선언)에 액세스할 수 없습니다.
+                 d:\arenafight\client\client\object.h(130) : 'CObject::m_d3dxmtxWorld' 선언을 참조하십시오.
+                 d:\arenafight\client\client\object.h(83) : 'CObject' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\player.cpp(56): error C2248: 'CObject::m_d3dxmtxWorld' : private 멤버('CObject' 클래스에서 선언)에 액세스할 수 없습니다.
+                 d:\arenafight\client\client\object.h(130) : 'CObject::m_d3dxmtxWorld' 선언을 참조하십시오.
+                 d:\arenafight\client\client\object.h(83) : 'CObject' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\player.cpp(57): error C2248: 'CObject::m_d3dxmtxWorld' : private 멤버('CObject' 클래스에서 선언)에 액세스할 수 없습니다.
+                 d:\arenafight\client\client\object.h(130) : 'CObject::m_d3dxmtxWorld' 선언을 참조하십시오.
+                 d:\arenafight\client\client\object.h(83) : 'CObject' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\player.cpp(58): error C2248: 'CObject::m_d3dxmtxWorld' : private 멤버('CObject' 클래스에서 선언)에 액세스할 수 없습니다.
+                 d:\arenafight\client\client\object.h(130) : 'CObject::m_d3dxmtxWorld' 선언을 참조하십시오.
+                 d:\arenafight\client\client\object.h(83) : 'CObject' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\player.cpp(59): error C2248: 'CObject::m_d3dxmtxWorld' : private 멤버('CObject' 클래스에서 선언)에 액세스할 수 없습니다.
+                 d:\arenafight\client\client\object.h(130) : 'CObject::m_d3dxmtxWorld' 선언을 참조하십시오.
+                 d:\arenafight\client\client\object.h(83) : 'CObject' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\player.cpp(60): error C2248: 'CObject::m_d3dxmtxWorld' : private 멤버('CObject' 클래스에서 선언)에 액세스할 수 없습니다.
+                 d:\arenafight\client\client\object.h(130) : 'CObject::m_d3dxmtxWorld' 선언을 참조하십시오.
+                 d:\arenafight\client\client\object.h(83) : 'CObject' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\player.cpp(289): error C2248: 'CObject::m_d3dxmtxWorld' : private 멤버('CObject' 클래스에서 선언)에 액세스할 수 없습니다.
+                 d:\arenafight\client\client\object.h(130) : 'CObject::m_d3dxmtxWorld' 선언을 참조하십시오.
+                 d:\arenafight\client\client\object.h(83) : 'CObject' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\player.cpp(292): error C2248: 'CObject::m_pMesh' : private 멤버('CObject' 클래스에서 선언)에 액세스할 수 없습니다.
+                 d:\arenafight\client\client\object.h(132) : 'CObject::m_pMesh' 선언을 참조하십시오.
+                 d:\arenafight\client\client\object.h(83) : 'CObject' 선언을 참조하십시오.
+                 d:\arenafight\client\client\object.h(132) : 'CObject::m_pMesh' 선언을 참조하십시오.
+                 d:\arenafight\client\client\object.h(83) : 'CObject' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\player.cpp(335): error C2248: 'CObject::m_pMesh' : private 멤버('CObject' 클래스에서 선언)에 액세스할 수 없습니다.
+                 d:\arenafight\client\client\object.h(132) : 'CObject::m_pMesh' 선언을 참조하십시오.
+                 d:\arenafight\client\client\object.h(83) : 'CObject' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\player.cpp(340): error C2248: 'CObject::m_d3dxmtxWorld' : private 멤버('CObject' 클래스에서 선언)에 액세스할 수 없습니다.
+                 d:\arenafight\client\client\object.h(130) : 'CObject::m_d3dxmtxWorld' 선언을 참조하십시오.
+                 d:\arenafight\client\client\object.h(83) : 'CObject' 선언을 참조하십시오.
+                 d:\arenafight\client\client\object.h(130) : 'CObject::m_d3dxmtxWorld' 선언을 참조하십시오.
+                 d:\arenafight\client\client\object.h(83) : 'CObject' 선언을 참조하십시오.
          코드를 생성하고 있습니다...
          컴파일하고 있습니다...
          Camera.cpp
          코드를 생성하고 있습니다...
          컴파일하고 있습니다...
          Shader.cpp
-         Scene.cpp
          ObjectManager.cpp
      1>d:\arenafight\client\client\objectmanager.cpp(28): warning C4244: '인수' : 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
      1>d:\arenafight\client\client\objectmanager.cpp(58): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
@@ -18,10 +80,11 @@
      1>d:\arenafight\client\client\objectmanager.cpp(74): warning C4244: '인수' : 'short'에서 'const unsigned char'(으)로 변환하면서 데이터가 손실될 수 있습니다.
      1>d:\arenafight\client\client\objectmanager.cpp(78): warning C4244: '인수' : 'short'에서 'const unsigned char'(으)로 변환하면서 데이터가 손실될 수 있습니다.
          Object.cpp
-     1>d:\arenafight\client\client\object.cpp(46): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
-     1>d:\arenafight\client\client\object.cpp(49): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
-     1>d:\arenafight\client\client\object.cpp(62): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
-     1>d:\arenafight\client\client\object.cpp(65): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
+     1>d:\arenafight\client\client\object.cpp(47): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
+     1>d:\arenafight\client\client\object.cpp(50): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
+     1>d:\arenafight\client\client\object.cpp(63): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
+     1>d:\arenafight\client\client\object.cpp(66): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
+     1>d:\arenafight\client\client\object.cpp(96): error C2065: 'm_pShader' : 선언되지 않은 식별자입니다.
          GameFramework.cpp
          GameClient.cpp
      1>d:\arenafight\client\client\gameclient.cpp(143): warning C4101: 'ps' :참조되지 않은 지역 변수입니다.
@@ -34,4 +97,4 @@
 
 빌드하지 못했습니다.
 
-경과 시간: 00:00:00.44
+경과 시간: 00:00:00.50

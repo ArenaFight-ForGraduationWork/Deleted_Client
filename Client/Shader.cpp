@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Shader.h"
+#include "Object.h"
 
 // http://blog.naver.com/snrnsrk06/100202723546 (Effect.fx)
 
@@ -122,7 +123,7 @@ void CShader::UpdateShaderVariables(ID3D11DeviceContext *pd3dDeviceContext, CTex
 }
 
 
-void CShader::Render(ID3D11DeviceContext *pd3dDeviceContext, CCamera *pCamera)
+void CShader::Render(ID3D11DeviceContext *pd3dDeviceContext)
 {
 	//정점의 입력-레이아웃을 디바이스 컨텍스트에 연결(설정)한다. 
 	if (m_pd3dVertexLayout) pd3dDeviceContext->IASetInputLayout(m_pd3dVertexLayout);
@@ -222,9 +223,9 @@ void CDiffusedShader::AnimateObjects(float fTimeElapsed)
 	CShader::AnimateObjects(fTimeElapsed);
 }
 
-void CDiffusedShader::Render(ID3D11DeviceContext *pd3dDeviceContext, CCamera *pCamera)
+void CDiffusedShader::Render(ID3D11DeviceContext *pd3dDeviceContext)
 {
-	CShader::Render(pd3dDeviceContext, pCamera);
+	CShader::Render(pd3dDeviceContext);
 }
 
 
@@ -246,7 +247,7 @@ void CIlluminatedShader::CreateShaderVariables(ID3D11Device *pd3dDevice)
 	d3dBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
 	d3dBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 	d3dBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-	d3dBufferDesc.ByteWidth = sizeof(MATERIAL);
+	d3dBufferDesc.ByteWidth = sizeof(CMaterial);
 	pd3dDevice->CreateBuffer(&d3dBufferDesc, NULL, &m_pd3dcbMaterial);
 }
 
@@ -255,7 +256,7 @@ void CIlluminatedShader::UpdateShaderVariables(ID3D11DeviceContext *pd3dDeviceCo
 	CShader::UpdateShaderVariables(pd3dDeviceContext, pd3dxmtxWorld);
 }
 
-void CIlluminatedShader::UpdateShaderVariables(ID3D11DeviceContext *pd3dDeviceContext, MATERIAL *pMaterial)
+void CIlluminatedShader::UpdateShaderVariables(ID3D11DeviceContext *pd3dDeviceContext, CMaterial *pMaterial)
 {
 	D3D11_MAPPED_SUBRESOURCE d3dMappedResource;
 	pd3dDeviceContext->Map(m_pd3dcbMaterial, 0, D3D11_MAP_WRITE_DISCARD, 0, &d3dMappedResource);
@@ -265,9 +266,9 @@ void CIlluminatedShader::UpdateShaderVariables(ID3D11DeviceContext *pd3dDeviceCo
 	pd3dDeviceContext->PSSetConstantBuffers(PS_SLOT_MATERIAL, 1, &m_pd3dcbMaterial);
 }
 
-void CIlluminatedShader::Render(ID3D11DeviceContext *pd3dDeviceContext, CCamera *pCamera)
+void CIlluminatedShader::Render(ID3D11DeviceContext *pd3dDeviceContext)
 {
-	CShader::Render(pd3dDeviceContext, pCamera);
+	CShader::Render(pd3dDeviceContext);
 }
 
 void CIlluminatedShader::ReleaseObjects()
@@ -560,8 +561,8 @@ void CPlayerShader::UpdateShaderVariables(ID3D11DeviceContext *pd3dDeviceContext
 	CDiffusedShader::UpdateShaderVariables(pd3dDeviceContext, pd3dxmtxWorld);
 }
 
-void CPlayerShader::Render(ID3D11DeviceContext *pd3dDeviceContext, CCamera *pCamera)
+void CPlayerShader::Render(ID3D11DeviceContext *pd3dDeviceContext)
 {
-	CDiffusedShader::Render(pd3dDeviceContext, pCamera);
+	CDiffusedShader::Render(pd3dDeviceContext);
 }
 

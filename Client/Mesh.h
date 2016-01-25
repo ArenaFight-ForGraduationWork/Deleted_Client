@@ -22,7 +22,6 @@ class CMesh
 {
 public:
 	CMesh(ID3D11Device *pd3dDevice);
-	virtual ~CMesh();
 
 	void AddRef();
 	void Release();
@@ -47,6 +46,8 @@ protected:
 
 	ID3D11RasterizerState *m_pd3dRasterizerState;	/* 래스터라이저 상태 객체에 대한 인터페이스 포인터*/
 
+	virtual ~CMesh();
+
 private:
 	int m_nReferences;	/* 이 객체가 참조된 횟수 */
 };
@@ -59,11 +60,12 @@ class CMeshIlluminated : public CMesh
 {
 public:
 	CMeshIlluminated(ID3D11Device *pd3dDevice);
-	virtual ~CMeshIlluminated();
 
 	virtual void Render(ID3D11DeviceContext *pd3dImmediateDeviceContext);
 
 protected:
+	virtual ~CMeshIlluminated();
+
 	/* 정점의 법선 벡터 계산. 정점 데이터와 인덱스 데이터 사용 */
 	void CalculateVertexNormal(BYTE *pVertices, WORD *pIndices);
 
@@ -81,10 +83,12 @@ class CCubeMeshIlluminatedTextured : public CMeshIlluminated
 {
 public:
 	CCubeMeshIlluminatedTextured(ID3D11Device *pd3dDevice, float fWidth = 2.0f, float fHeight = 2.0f, float fDepth = 2.0f);
-	virtual ~CCubeMeshIlluminatedTextured();
 
 	virtual void SetRasterizerState(ID3D11Device *pd3dDevice);
 	virtual void Render(ID3D11DeviceContext *pd3dDeviceContext);
+
+private:
+	virtual ~CCubeMeshIlluminatedTextured();
 };
 
 
