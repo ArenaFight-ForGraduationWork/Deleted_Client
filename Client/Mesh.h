@@ -1,16 +1,3 @@
-
-
-// ===========================================================================================
-//
-//
-//		CMeshIlluminated를 상속받아서 CCubeMeshIlluminatedTextured를 쓰게 되어있는데
-//		사실 CMeshIlluminated 필요 없음. 그러니 합치는게 좋겠다
-//
-//
-// ===========================================================================================
-
-
-
 #ifndef MESH_H_
 #define MESH_H_
 
@@ -55,31 +42,8 @@ private:
 
 
 
-/* 조명의 영향을 받는 메쉬의 베이스 클래스 */
-class CMeshIlluminated : public CMesh
-{
-public:
-	CMeshIlluminated(ID3D11Device *pd3dDevice);
-
-	virtual void Render(ID3D11DeviceContext *pd3dImmediateDeviceContext);
-
-protected:
-	virtual ~CMeshIlluminated();
-
-	/* 정점의 법선 벡터 계산. 정점 데이터와 인덱스 데이터 사용 */
-	void CalculateVertexNormal(BYTE *pVertices, WORD *pIndices);
-
-private:
-	void SetTriAngleListVertexNormal(BYTE *pVertices);	/* 정점의 법선 벡터 계산. 인덱스 버퍼를 쓰지 않는 삼각형 리스트용 */
-	void SetAverageVertexNormal(BYTE *pVertices, WORD *pIndices, int nPrimitives, int nOffset, bool bStrip);	/* 정점의 법선벡터의 평균 계산. 인덱스 버퍼를 사용할 경우 */
-	D3DXVECTOR3 CalculateTriAngleNormal(BYTE *pVertices, USHORT nIndex0, USHORT nIndex1, USHORT nIndex2);	/* 삼각형의 법선 벡터 계산. 삼각형의 세 정점을 사용 */
-};
-
-
-
-
 /* 조명, 텍스처를 이용하는 정육면체 메쉬를 표현 */
-class CCubeMeshIlluminatedTextured : public CMeshIlluminated
+class CCubeMeshIlluminatedTextured : public CMesh
 {
 public:
 	CCubeMeshIlluminatedTextured(ID3D11Device *pd3dDevice, float fWidth = 2.0f, float fHeight = 2.0f, float fDepth = 2.0f);
@@ -89,6 +53,29 @@ public:
 
 private:
 	virtual ~CCubeMeshIlluminatedTextured();
+
+	/* 정점의 법선 벡터 계산. 정점 데이터와 인덱스 데이터 사용 */
+	void CalculateVertexNormal(BYTE *pVertices, WORD *pIndices);
+
+	void SetTriAngleListVertexNormal(BYTE *pVertices);	/* 정점의 법선 벡터 계산. 인덱스 버퍼를 쓰지 않는 삼각형 리스트용 */
+	void SetAverageVertexNormal(BYTE *pVertices, WORD *pIndices, int nPrimitives, int nOffset, bool bStrip);	/* 정점의 법선벡터의 평균 계산. 인덱스 버퍼를 사용할 경우 */
+	D3DXVECTOR3 CalculateTriAngleNormal(BYTE *pVertices, USHORT nIndex0, USHORT nIndex1, USHORT nIndex2);	/* 삼각형의 법선 벡터 계산. 삼각형의 세 정점을 사용 */
+};
+
+
+
+
+/* 조명, 텍스처를 이용하는 메쉬를 표현. 정점 데이터는 파일입출력으로 불러온다 */
+class CImportedMesh : public CMesh
+{
+public:
+	CImportedMesh(ID3D11Device *pd3dDevice);
+
+	virtual void SetRasterizerState(ID3D11Device *pd3dDevice);
+	virtual void Render(ID3D11DeviceContext *pd3dDeviceContext);
+
+protected:
+	~CImportedMesh();
 };
 
 
