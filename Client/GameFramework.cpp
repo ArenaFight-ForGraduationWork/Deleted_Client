@@ -213,25 +213,25 @@ LRESULT CALLBACK CGameFramework::OnProcessingWindowMessage(HWND hWnd, UINT nMess
 	{
 	case WM_SIZE:
 	{
-					m_nWndClientWidth = LOWORD(lParam);
-					m_nWndClientHeight = HIWORD(lParam);
+		m_nWndClientWidth = LOWORD(lParam);
+		m_nWndClientHeight = HIWORD(lParam);
 
-					m_pd3dDeviceContext->OMSetRenderTargets(0, NULL, NULL);
+		m_pd3dDeviceContext->OMSetRenderTargets(0, NULL, NULL);
 
-					if (m_pd3dRenderTargetView) m_pd3dRenderTargetView->Release();
-					if (m_pd3dDepthStencilBuffer) m_pd3dDepthStencilBuffer->Release();
-					if (m_pd3dDepthStencilView) m_pd3dDepthStencilView->Release();
+		if (m_pd3dRenderTargetView) m_pd3dRenderTargetView->Release();
+		if (m_pd3dDepthStencilBuffer) m_pd3dDepthStencilBuffer->Release();
+		if (m_pd3dDepthStencilView) m_pd3dDepthStencilView->Release();
 
-					m_pDXGISwapChain->ResizeBuffers(1, 0, 0, DXGI_FORMAT_R8G8B8A8_UNORM, 0);
+		m_pDXGISwapChain->ResizeBuffers(1, 0, 0, DXGI_FORMAT_R8G8B8A8_UNORM, 0);
 
-					CreateRenderTargetDepthStencilView();
+		CreateRenderTargetDepthStencilView();
 
-					if (m_ppPlayers)
-					{
-						CCamera *pCamera = m_ppPlayers[0]->GetCamera();
-						pCamera->SetViewport(m_pd3dDeviceContext, 0, 0, m_nWndClientWidth, m_nWndClientHeight, 0.0f, 1.0f);
-					}
-					break;
+		if (m_ppPlayers)
+		{
+			CCamera *pCamera = m_ppPlayers[0]->GetCamera();
+			pCamera->SetViewport(m_pd3dDeviceContext, 0, 0, m_nWndClientWidth, m_nWndClientHeight, 0.0f, 1.0f);
+		}
+		break;
 	}
 	case WM_LBUTTONDOWN:
 	case WM_RBUTTONDOWN:
@@ -310,7 +310,7 @@ void CGameFramework::ProcessInput()
 	{
 		static UCHAR pKeyBuffer[256];
 		DWORD dwDirection = 0;
-		
+
 		if (GetKeyboardState(pKeyBuffer))
 		{
 			if (pKeyBuffer[VK_UP] & 0xF0) dwDirection |= DIR_FORWARD;
@@ -322,7 +322,7 @@ void CGameFramework::ProcessInput()
 		}
 		float cxDelta = 0.0f, cyDelta = 0.0f;
 		POINT ptCursorPos;
-		
+
 		if (GetCapture() == m_hWnd)
 		{
 			//마우스 커서를 화면에서 없앤다(보이지 않게 한다).

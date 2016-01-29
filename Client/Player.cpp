@@ -309,35 +309,29 @@ void CPlayer::OnCameraUpdated(float fTimeElapsed)
 
 CAirplanePlayer::CAirplanePlayer(ID3D11Device *pd3dDevice)
 {
-	////비행기 메쉬를 생성한다.
-	//CMesh *pAirplaneMesh = new CAirplaneMesh(pd3dDevice, 20.0f, 20.0f, 4.0f, D3DCOLOR_XRGB(0, 255, 0));
-	//SetMesh(pAirplaneMesh);
-	CMesh *pMesh = new CCubeMeshIlluminatedTextured(pd3dDevice);
-	SetMesh(pMesh);
-
-	//플레이어(비행기) 메쉬를 렌더링할 때 사용할 쉐이더를 생성한다.
-	m_pShader = new CPlayerShader();
-	m_pShader->CreateShader(pd3dDevice);
-	m_pShader->CreateShaderVariables(pd3dDevice);
-
-	//플레이어를 위한 쉐이더 변수를 생성한다.
-	CreateShaderVariables(pd3dDevice);
+	//CMesh *pMesh = new CCubeMeshIlluminatedTextured(pd3dDevice);
+	//m_pObject->SetMesh(pMesh);
+	// 메쉬는 여기가 아니라 ObjectManager에서 연결해줄거다
 }
 
 CAirplanePlayer::~CAirplanePlayer()
 {
-	if (m_pShader) delete m_pShader;
 }
 
 void CAirplanePlayer::Render(ID3D11DeviceContext *pd3dDeviceContext)
 {
 	DWORD nCurrentCameraMode = (m_pCamera) ? m_pCamera->GetMode() : 0x00;
-	if ((nCurrentCameraMode == THIRD_PERSON_CAMERA) && m_pMesh)
+	if ((nCurrentCameraMode == THIRD_PERSON_CAMERA) && m_pObject->GetMesh())
 	{
 		D3DXMATRIX mtxRotate;
 		// 3인칭 카메라일 때 플레이어 메쉬를 로컬 x-축을 중심으로 +90도 회전하고 렌더링한다.
 		D3DXMatrixRotationYawPitchRoll(&mtxRotate, 0.0f, (float)D3DXToRadian(90.0f), 0.0f);
-		(*m_d3dxmtxWorld) = mtxRotate * (*m_d3dxmtxWorld);
+
+		// 이후
+		//D3DXMATRIX temp = mtxRotate * (*(m_pObject->GetWorldMatrix()));
+		//m_pObject->SetWorldMatrix(temp);
+		// 이전
+		//(*m_d3dxmtxWorld) = mtxRotate * (*m_d3dxmtxWorld);
 
 		CPlayer::Render(pd3dDeviceContext);
 	}

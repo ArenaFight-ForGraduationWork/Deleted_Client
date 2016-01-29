@@ -7,9 +7,6 @@ CScene::CScene()
 	m_nShaders = 0;
 	m_ppShaders = NULL;
 
-	m_ppObjects = NULL;
-	m_nObjects = 0;
-
 	m_pLights = NULL;
 	m_pd3dcbLights = NULL;
 }
@@ -41,13 +38,6 @@ void CScene::ReleaseObjects()
 	{
 		for (int i = 0; i < m_nShaders; ++i) m_ppShaders[i]->ReleaseObjects();
 		delete[] m_ppShaders;
-	}
-
-	//게임 객체 리스트의 각 객체를 반환(Release)하고 리스트를 소멸시킨다.
-	if (m_ppObjects)
-	{
-		for (int j = 0; j < m_nObjects; j++) m_ppObjects[j]->~CObject();
-		delete[] m_ppObjects;
 	}
 }
 
@@ -92,7 +82,7 @@ void CScene::Render(ID3D11DeviceContext*pd3dDeviceContext, CCamera *pCamera)
 
 	for (int i = 0; i < m_nShaders; i++)
 	{
-		m_ppShaders[i]->Render(pd3dDeviceContext, pCamera);
+		m_ppShaders[i]->Render(pd3dDeviceContext);
 	}
 }
 

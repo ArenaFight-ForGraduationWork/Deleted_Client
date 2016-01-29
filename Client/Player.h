@@ -1,11 +1,13 @@
-#pragma once
+#ifndef PLYAER_H_
+#define PLAYER_H_
+
 #include "Timer.h"
 #include "Camera.h"
 #include "Object.h"
 #include "Shader.h"
 
 
-class CPlayer : public CObject
+class CPlayer
 {
 protected:
 	//플레이어의 위치 벡터, x-축(Right), y-축(Up), z-축(Look) 벡터이다.
@@ -38,8 +40,9 @@ protected:
 	//플레이어의 현재 카메라이다.
 	CCamera *m_pCamera;
 
-	//3인칭 카메라일 때 플레이어를 그리기 위해 사용하는 쉐이더이다.
-	CPlayerShader *m_pShader;
+	// 플레이어의 현재 객체이다.
+	CObject *m_pObject;
+
 
 public:
 	CPlayer();
@@ -111,3 +114,6 @@ public:
 	virtual void ChangeCamera(ID3D11Device *pd3dDevice, DWORD nNewCameraMode, float fTimeElapsed);
 	virtual void Render(ID3D11DeviceContext *pd3dDeviceContext);
 };
+
+
+#endif
