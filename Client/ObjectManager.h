@@ -2,7 +2,9 @@
 #define OBJECTMANAGER_H_
 
 #include "stdafx.h"
-#include "Object.h"
+
+class CObject;
+class CShader;
 
 /*
 *		고민 : ObjectCategory
@@ -29,16 +31,11 @@ public:
 	void Insert(UINT id, int x, int y, int z, int dx, int dy, int dz);
 	void Insert(UINT id, D3DXVECTOR3 position, D3DXVECTOR3 direction);
 
-	/* 전체 오브젝트 중에서 해당 id를 가진 오브젝트를 찾는다 */
 	CObject* FindObject(UINT id);
-
-	/* 오브젝트 카테고리 중 id번째 카테고리의 오브젝트들을 반환한다 */
 	const std::vector<CObject*> FindObjectInCategory(const UINT id);
 
-	/* id ?의 오브젝트를 삭제 */
 	void DeleteObject(UINT id);
 
-	/* 현재 가지고 있는 모든 오브젝트를 삭제 */
 	void DeleteObjectAll();
 
 	/* ObjectList의 카테고리
@@ -48,7 +45,7 @@ public:
 	* PLAYER : 나와 다른 유저들을 구분해야 할까? 고민 좀 해봐야겠음
 	* BUFF_CRYSTAL : 일단 이렇게 써놨는데. 충돌체크X 존재O인 오브젝트
 	*/
-	enum class ObjectCategory :BYTE{
+	enum class ObjectType :BYTE{
 		START = 0,
 		LAND = 0,
 		NATURAL_FEATURE,
@@ -58,8 +55,15 @@ public:
 		END
 	};
 
+	enum class ShaderType : BYTE{
+		START = 0,
+		IlluminatedTextured,
+		END
+	};
+
 private:
-	std::map<BYTE, std::vector<CObject*>> m_mObjectList;
+	std::map<ObjectType, std::vector<CObject*>> m_mObjects;
+	std::map<ShaderType, CShader*> m_mShaders;
 
 	CObjectManager();
 };

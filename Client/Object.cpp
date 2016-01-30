@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "Object.h"
-#include "Mesh.h"
-#include "Shader.h"
 
 
 
