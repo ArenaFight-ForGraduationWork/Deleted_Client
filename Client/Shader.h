@@ -30,7 +30,9 @@ public:
 	virtual void UpdateShaderVariables(ID3D11DeviceContext *pd3dDeviceContext, CMaterial *pMaterial = NULL);
 	virtual void UpdateShaderVariables(ID3D11DeviceContext *pd3dDeviceContext, CTexture *pTexture);
 
-	void ReleaseObjects();
+	void InsertObject(CObject *pObject);
+	void ReleaseObject(UINT id);
+	void ReleaseAllObjects();
 	void AnimateObjects(float fTimeElapsed);
 	void Render(ID3D11DeviceContext *pd3dDeviceContext);
 

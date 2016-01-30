@@ -25,17 +25,30 @@ CShader::~CShader()
 	if (m_pd3dVertexLayout) m_pd3dVertexLayout->Release();
 }
 
-void CShader::ReleaseObjects()
+void CShader::InsertObject(CObject *pObject)
+{
+	m_vObjects.push_back(pObject);
+}
+
+void CShader::ReleaseObject(UINT id)
+{
+	for (auto p = m_vObjects.begin(); p != m_vObjects.end();)
+	{
+		if (id == (*p)->GetId())
+		{
+			p = m_vObjects.erase(p);
+			break;
+		}
+		else
+			++p;
+	}
+}
+
+void CShader::ReleaseAllObjects()
 {
 	if (m_pd3dcbWorldMatrix) m_pd3dcbWorldMatrix->Release();
 	if (m_pd3dcbMaterial) m_pd3dcbMaterial->Release();
-
-	if (m_vObjects.size() > 0)
-	{
-		for (auto obj : m_vObjects)
-			delete obj;
-		m_vObjects.clear();
-	}
+	m_vObjects.clear();
 }
 
 void CShader::AnimateObjects(float fTimeElapsed)
