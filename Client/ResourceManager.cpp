@@ -52,10 +52,14 @@ CMaterial* CResourceManager::GetMaterial(ResourceType type)
 	BYTE id = m_vResources[(int)type]->GetMaterialID();
 	return m_mMaterial[id];
 }
-CShader* CResourceManager::GetShader(ResourceType type)
+CShader* CResourceManager::GetShaderByResourceType(ResourceType type)
 {
 	BYTE id = m_vResources[(int)type]->GetShaderID();
 	return m_mShader[id];
+}
+CShader* CResourceManager::GetShaderByShaderType(ShaderType type)
+{
+	return m_mShader[(int)type];
 }
 
 bool CResourceManager::IsTextureEnable(ResourceType type)

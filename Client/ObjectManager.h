@@ -2,9 +2,7 @@
 #define OBJECTMANAGER_H_
 
 #include "stdafx.h"
-
-class CObject;
-class CShader;
+#include "ResourceManager.h"
 
 /*
 *		고민 : ObjectCategory
@@ -24,7 +22,7 @@ class CShader;
 class CObjectManager
 {
 public:
-	CObjectManager* GetSingleton();
+	static CObjectManager* GetSingleton(ID3D11Device *pd3dDevice);
 	~CObjectManager();
 
 	/* ~데이터를 가진 오브젝트를 추가 */
@@ -55,17 +53,12 @@ public:
 		END
 	};
 
-	enum class ShaderType : BYTE{
-		START = 0,
-		IlluminatedTextured,
-		END
-	};
-
 private:
 	std::map<ObjectType, std::vector<CObject*>> m_mObjects;
-	std::map<ShaderType, CShader*> m_mShaders;
 
-	CObjectManager();
+	CResourceManager *pResourceManager;
+
+	CObjectManager(ID3D11Device *pd3dDevice);
 };
 
 

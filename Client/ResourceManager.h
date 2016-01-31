@@ -48,12 +48,13 @@ public:
 	CMesh* GetMesh(ResourceType type);
 	CTexture* GetTexture(ResourceType type);
 	CMaterial* GetMaterial(ResourceType type);
-	CShader* GetShader(ResourceType type);
+	CShader* GetShaderByResourceType(ResourceType type);
+	CShader* GetShaderByShaderType(ShaderType type);
 
 	bool IsTextureEnable(ResourceType type);
 	bool IsMaterialEnable(ResourceType type);
 
-	CResourceManager* GetSingleton(ID3D11Device *pd3dDevice);
+	static CResourceManager* GetSingleton(ID3D11Device *pd3dDevice);
 
 	~CResourceManager();
 
