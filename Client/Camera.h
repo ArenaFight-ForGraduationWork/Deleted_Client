@@ -1,14 +1,10 @@
-#pragma once
+#ifndef CAMERA_H_
+#define CAMERA_H_
 
 //카메라의 종류(모드: Mode)를 나타내는 상수를 다음과 같이 선언한다.
 #define FIRST_PERSON_CAMERA	0x01
 #define SPACESHIP_CAMERA	0x02
 #define THIRD_PERSON_CAMERA	0x03
-
-//프레임 버퍼의 크기와 종횡비(Aspect Ratio)를 나타내는 상수를 다음과 같이 선언한다.
-#define FRAME_BUFFER_WIDTH	640
-#define FRAME_BUFFER_HEIGHT	480
-#define ASPECT_RATIO	(float(FRAME_BUFFER_WIDTH)/float(FRAME_BUFFER_HEIGHT))
 
 struct VS_CB_VIEWPROJECTION_MATRIX
 {
@@ -146,3 +142,7 @@ public:
 	virtual void Update(float fTimeScale);
 	virtual void SetLookAt(D3DXVECTOR3& vLookAt);
 };
+
+
+
+#endif
