@@ -84,6 +84,18 @@ public:
 
 	UINT GetId() { return m_id; }
 
+	void MoveRelative(const float fx, const float fy, const float fz);
+	void MoveRelative(const D3DXVECTOR3 d3dxVec);
+	void MoveAbsolute(const float fx, const float fy, const float fz);
+	void MoveAbsolute(const D3DXVECTOR3 d3dxVec);
+
+
+
+
+
+
+
+
 	virtual void SetPosition(float x, float y, float z);
 	virtual void SetPosition(D3DXVECTOR3 d3dxvPosition);
 
@@ -131,7 +143,6 @@ private:
 	CTexture *m_pTexture;
 
 	UINT m_id;
-	// hp, mp, atk, def, ...
 };
 
 
