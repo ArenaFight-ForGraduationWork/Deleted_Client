@@ -85,10 +85,16 @@ public:
 	UINT GetId() { return m_id; }
 
 	void MoveRelative(const float fx, const float fy, const float fz);
-	void MoveRelative(const D3DXVECTOR3 d3dxVec);
+	void MoveRelative(const D3DXVECTOR3 *d3dxVec);
 	void MoveAbsolute(const float fx, const float fy, const float fz);
-	void MoveAbsolute(const D3DXVECTOR3 d3dxVec);
+	void MoveAbsolute(const D3DXVECTOR3 *d3dxVec);
 
+	void RotateRelative(const float fPitch, const float fYaw, const float fRoll);
+	void RotateRelative(const D3DXVECTOR3 *d3dxVec);
+	void RotateRelative(const D3DXVECTOR3 *pd3dxvAxis, const float fAngle);
+	void RotateAbsolute(const float fPitch, const float fYaw, const float fRoll);
+	void RotateAbsolute(const D3DXVECTOR3 *d3dxVec);
+	void RotateAbsolute(const D3DXVECTOR3 *pd3dxvAxis, const float fAngle);
 
 
 
@@ -143,6 +149,8 @@ private:
 	CTexture *m_pTexture;
 
 	UINT m_id;
+
+	const D3DXMATRIX* _GetRotationMatrix();
 };
 
 

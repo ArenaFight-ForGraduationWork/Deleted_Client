@@ -225,9 +225,9 @@ void CObject::MoveRelative(const float fx, const float fy, const float fz)
 	d3dxvPosition += fy * d3dxvUp;
 	d3dxvPosition += fz * d3dxvLookAt;
 
-	MoveAbsolute(d3dxvPosition);
+	MoveAbsolute(&d3dxvPosition);
 }
-void CObject::MoveRelative(const D3DXVECTOR3 d3dxVec)
+void CObject::MoveRelative(const D3DXVECTOR3 *d3dxVec)
 {
 	D3DXVECTOR3 d3dxvPosition = GetPosition();
 
@@ -235,11 +235,11 @@ void CObject::MoveRelative(const D3DXVECTOR3 d3dxVec)
 	D3DXVECTOR3 d3dxvUp = GetUp();
 	D3DXVECTOR3 d3dxvLookAt = GetLookAt();
 
-	d3dxvPosition += d3dxVec.x * d3dxvRight;
-	d3dxvPosition += d3dxVec.y * d3dxvUp;
-	d3dxvPosition += d3dxVec.z * d3dxvLookAt;
+	d3dxvPosition += d3dxVec->x * d3dxvRight;
+	d3dxvPosition += d3dxVec->y * d3dxvUp;
+	d3dxvPosition += d3dxVec->z * d3dxvLookAt;
 
-	MoveAbsolute(d3dxvPosition);
+	MoveAbsolute(&d3dxvPosition);
 }
 void CObject::MoveAbsolute(const float fx, const float fy, const float fz)
 {
@@ -247,11 +247,73 @@ void CObject::MoveAbsolute(const float fx, const float fy, const float fz)
 	m_d3dxmtxWorld->_42 = fy;
 	m_d3dxmtxWorld->_43 = fz;
 }
-void CObject::MoveAbsolute(const D3DXVECTOR3 d3dxVec)
+void CObject::MoveAbsolute(const D3DXVECTOR3 *d3dxVec)
 {
-	m_d3dxmtxWorld->_41 = d3dxVec.x;
-	m_d3dxmtxWorld->_42 = d3dxVec.y;
-	m_d3dxmtxWorld->_43 = d3dxVec.z;
+	m_d3dxmtxWorld->_41 = d3dxVec->x;
+	m_d3dxmtxWorld->_42 = d3dxVec->y;
+	m_d3dxmtxWorld->_43 = d3dxVec->z;
 }
 
+void CObject::RotateRelative(const float fPitch, const float fYaw, const float fRoll)
+{
+	D3DXMATRIX mtxRotate;
+	D3DXMatrixRotationYawPitchRoll(&mtxRotate, (float)D3DXToRadian(fYaw), (float)D3DXToRadian(fPitch), (float)D3DXToRadian(fRoll));
+	(*m_d3dxmtxWorld) = mtxRotate * (*m_d3dxmtxWorld);
+}
+void CObject::RotateRelative(const D3DXVECTOR3 *d3dxVec)
+{
+	D3DXMATRIX mtxRotate;
+	D3DXMatrixRotationYawPitchRoll(&mtxRotate, (float)D3DXToRadian(d3dxVec->y), (float)D3DXToRadian(d3dxVec->x), (float)D3DXToRadian(d3dxVec->z));
+	(*m_d3dxmtxWorld) = mtxRotate * (*m_d3dxmtxWorld);
+}
+void CObject::RotateRelative(const D3DXVECTOR3 *pd3dxvAxis, const float fAngle)
+{
+	D3DXMATRIX mtxRotate;
+	D3DXMatrixRotationAxis(&mtxRotate, pd3dxvAxis, (float)D3DXToRadian(fAngle));
+	(*m_d3dxmtxWorld) = mtxRotate * (*m_d3dxmtxWorld);
+}
+void CObject::RotateAbsolute(const float fPitch, const float fYaw, const float fRoll)
+{
+	// 1) 회전각을 0,0,0으로 되돌리기
+	(*m_d3dxmtxWorld) = (*_GetRotationMatrix()) * (*m_d3dxmtxWorld);
 
+	// 2) fPitch, fYaw, fRoll로 회전하기
+	RotateRelative(fPitch, fYaw, fRoll);
+}
+void CObject::RotateAbsolute(const D3DXVECTOR3 *d3dxVec)
+{
+	// 1) 회전각을 0,0,0으로 되돌리기
+	(*m_d3dxmtxWorld) = (*_GetRotationMatrix()) * (*m_d3dxmtxWorld);
+
+	// 2) d3dxVec만큼 회전하기
+	RotateRelative(d3dxVec);
+}
+void CObject::RotateAbsolute(const D3DXVECTOR3 *pd3dxvAxis, const float fAngle)
+{
+	// 1) 회전각을 0,0,0으로 되돌리기
+	(*m_d3dxmtxWorld) = (*_GetRotationMatrix()) * (*m_d3dxmtxWorld);
+
+	// 2) fPitch, fYaw, fRoll로 회전하기
+	RotateRelative(pd3dxvAxis, fAngle);
+}
+
+const D3DXMATRIX* CObject::_GetRotationMatrix()
+{
+	D3DXMATRIX mtxRotate;
+	D3DXMatrixIdentity(&mtxRotate);
+
+	/* Scale을 하지 않는다는 가정 하의 회전행렬... 
+		Scale해버리면 다른 방법을 찾아야 하는데,
+		어차피 DirectX에서는 Scale하면 퍼포먼스가 매우 떨어진다 하셨으므로 안 할 것이다 */
+	m_d3dxmtxWorld->_11 = mtxRotate._11;
+	m_d3dxmtxWorld->_12 = mtxRotate._12;
+	m_d3dxmtxWorld->_13 = mtxRotate._13;
+	m_d3dxmtxWorld->_21 = mtxRotate._21;
+	m_d3dxmtxWorld->_22 = mtxRotate._22;
+	m_d3dxmtxWorld->_23 = mtxRotate._23;
+	m_d3dxmtxWorld->_31 = mtxRotate._31;
+	m_d3dxmtxWorld->_32 = mtxRotate._32;
+	m_d3dxmtxWorld->_33 = mtxRotate._33;
+
+	return &mtxRotate;
+}
