@@ -96,27 +96,6 @@ public:
 	void RotateAbsolute(const D3DXVECTOR3 *d3dxVec);
 	void RotateAbsolute(const D3DXVECTOR3 *pd3dxvAxis, const float fAngle);
 
-
-
-
-
-
-
-	virtual void SetPosition(float x, float y, float z);
-	virtual void SetPosition(D3DXVECTOR3 d3dxvPosition);
-
-	/* 로컬 x축 방향으로 이동한다 */
-	virtual void MoveStrafe(float fDistance = 1.0f);
-	/* 로컬 y축 방향으로 이동한다 */
-	virtual void MoveUp(float fDistance = 1.0f);
-	/* 로컬 z축 방향으로 이동한다 */
-	virtual void MoveForward(float fDistance = 1.0f);
-
-	/* x축(Pitch), y축(Yaw), z축(Roll)방향으로 지정값만큼 회전한다 */
-	virtual void Rotate(float fPitch = 10.0f, float fYaw = 10.0f, float fRoll = 10.0f);
-	/* pd3dxvAxis를 축으로 fAngle만큼 회전한다 */
-	virtual void Rotate(D3DXVECTOR3 *pd3dxvAxis, float fAngle);
-
 	D3DXVECTOR3 GetPosition();
 
 	/* 객체의 로컬 x축 방향벡터를 반환한다 */

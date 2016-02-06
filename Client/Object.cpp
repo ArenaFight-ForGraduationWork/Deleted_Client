@@ -116,31 +116,16 @@ void CObject::SetMaterial(CMaterial *pMaterial)
 	if (m_pMaterial) m_pMaterial->AddRef();
 }
 
-void CObject::Animate(float fTimeElapsed)
+void CObject::SetTexture(CTexture *pTexture)
 {
-}
-
-void CObject::Render(ID3D11DeviceContext *pd3dDeviceContext)
-{
-	if (m_pMesh) m_pMesh->Render(pd3dDeviceContext);
-}
-
-void CObject::SetPosition(float x, float y, float z)
-{
-	m_d3dxmtxWorld->_41 = x;
-	m_d3dxmtxWorld->_42 = y;
-	m_d3dxmtxWorld->_43 = z;
-}
-void CObject::SetPosition(D3DXVECTOR3 d3dxvPosition)
-{
-	m_d3dxmtxWorld->_41 = d3dxvPosition.x;
-	m_d3dxmtxWorld->_42 = d3dxvPosition.y;
-	m_d3dxmtxWorld->_43 = d3dxvPosition.z;
+	if (m_pTexture) m_pTexture->Release();
+	m_pTexture = pTexture;
+	if (m_pTexture) m_pTexture->AddRef();
 }
 
 D3DXVECTOR3 CObject::GetPosition()
 {
-	return(D3DXVECTOR3(m_d3dxmtxWorld->_41, m_d3dxmtxWorld->_42, m_d3dxmtxWorld->_43));
+	return D3DXVECTOR3(m_d3dxmtxWorld->_41, m_d3dxmtxWorld->_42, m_d3dxmtxWorld->_43);
 }
 
 D3DXVECTOR3 CObject::GetLookAt()
@@ -163,55 +148,6 @@ D3DXVECTOR3 CObject::GetRight()
 	D3DXVec3Normalize(&d3dxvRight, &d3dxvRight);
 	return(d3dxvRight);
 }
-
-void CObject::MoveStrafe(float fDistance)
-{
-	D3DXVECTOR3 d3dxvPosition = GetPosition();
-	D3DXVECTOR3 d3dxvRight = GetRight();
-	d3dxvPosition += fDistance * d3dxvRight;
-	CObject::SetPosition(d3dxvPosition);
-}
-
-void CObject::MoveUp(float fDistance)
-{
-	D3DXVECTOR3 d3dxvPosition = GetPosition();
-	D3DXVECTOR3 d3dxvUp = GetUp();
-	d3dxvPosition += fDistance * d3dxvUp;
-	CObject::SetPosition(d3dxvPosition);
-}
-
-void CObject::MoveForward(float fDistance)
-{
-	D3DXVECTOR3 d3dxvPosition = GetPosition();
-	D3DXVECTOR3 d3dxvLookAt = GetLookAt();
-	d3dxvPosition += fDistance * d3dxvLookAt;
-	CObject::SetPosition(d3dxvPosition);
-}
-
-void CObject::Rotate(float fPitch, float fYaw, float fRoll)
-{
-	D3DXMATRIX mtxRotate;
-	D3DXMatrixRotationYawPitchRoll(&mtxRotate, (float)D3DXToRadian(fYaw), (float)D3DXToRadian(fPitch), (float)D3DXToRadian(fRoll));
-	(*m_d3dxmtxWorld) = mtxRotate * (*m_d3dxmtxWorld);
-}
-
-void CObject::Rotate(D3DXVECTOR3 *pd3dxvAxis, float fAngle)
-{
-	D3DXMATRIX mtxRotate;
-	D3DXMatrixRotationAxis(&mtxRotate, pd3dxvAxis, (float)D3DXToRadian(fAngle));
-	(*m_d3dxmtxWorld) = mtxRotate * (*m_d3dxmtxWorld);
-}
-
-void CObject::SetTexture(CTexture *pTexture)
-{
-	if (m_pTexture) m_pTexture->Release();
-	m_pTexture = pTexture;
-	if (m_pTexture) m_pTexture->AddRef();
-}
-
-
-
-
 
 void CObject::MoveRelative(const float fx, const float fy, const float fz)
 {
@@ -317,3 +253,41 @@ const D3DXMATRIX* CObject::_GetRotationMatrix()
 
 	return &mtxRotate;
 }
+
+void CObject::Animate(float fTimeElapsed)
+{
+}
+
+void CObject::Render(ID3D11DeviceContext *pd3dDeviceContext)
+{
+	if (m_pMesh) m_pMesh->Render(pd3dDeviceContext);
+}
+
+
+
+///* 로컬 x축 방향으로 이동한다 */
+//void CObject::MoveStrafe(float fDistance)
+//{
+//	D3DXVECTOR3 d3dxvPosition = GetPosition();
+//	D3DXVECTOR3 d3dxvRight = GetRight();
+//	d3dxvPosition += fDistance * d3dxvRight;
+//	CObject::MoveAbsolute(d3dxvPosition);
+//}
+//
+///* 로컬 y축 방향으로 이동한다 */
+//void CObject::MoveUp(float fDistance)
+//{
+//	D3DXVECTOR3 d3dxvPosition = GetPosition();
+//	D3DXVECTOR3 d3dxvUp = GetUp();
+//	d3dxvPosition += fDistance * d3dxvUp;
+//	CObject::MoveAbsolute(d3dxvPosition);
+//}
+//
+///* 로컬 z축 방향으로 이동한다 */
+//void CObject::MoveForward(float fDistance)
+//{
+//	D3DXVECTOR3 d3dxvPosition = GetPosition();
+//	D3DXVECTOR3 d3dxvLookAt = GetLookAt();
+//	d3dxvPosition += fDistance * d3dxvLookAt;
+//	CObject::MoveAbsolute(d3dxvPosition);
+//}

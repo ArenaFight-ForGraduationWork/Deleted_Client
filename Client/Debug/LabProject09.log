@@ -1,7 +1,7 @@
-﻿빌드 시작: 2016-01-31 오후 9:08:43
+﻿빌드 시작: 2016-02-07 오전 12:52:18
      1>2 노드의 "D:\ArenaFight\Client\Client\LabProject09.vcxproj" 프로젝트(Build 대상)입니다.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\GameClient.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ObjectManager.cpp Player.cpp ResourceManager.cpp Scene.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\GameClient.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp GameClient.cpp GameFramework.cpp Object.cpp ObjectManager.cpp Player.cpp ResourceManager.cpp Scene.cpp Shader.cpp
          Scene.cpp
      1>d:\arenafight\client\client\scene.h(55): error C2061: 구문 오류 : 식별자 'CCamera'
      1>d:\arenafight\client\client\scene.cpp(39): error C2039: 'ReleaseObjects' : 'CShader'의 멤버가 아닙니다.
@@ -15,76 +15,135 @@
      1>d:\arenafight\client\client\scene.cpp(69): error C3867: 'CScene::m_pd3dcbLights': 함수 호출에 인수 목록이 없습니다. '&CScene::m_pd3dcbLights'을(를) 사용하여 멤버에 대한 포인터를 만드십시오.
      1>d:\arenafight\client\client\scene.cpp(69): error C2568: '&&' : 함수 오버로드를 확인할 수 없습니다.
                  이전 오류를 복구할 수 없습니다. 컴파일이 중지됩니다.
-         ResourceManager.cpp
          Player.cpp
-     1>d:\arenafight\client\client\player.cpp(28): error C2065: 'm_pShader' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\player.cpp(49): error C2065: 'm_d3dxmtxWorld' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\player.cpp(49): error C2227: '->_11' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
+     1>d:\arenafight\client\client\player.cpp(1): warning C4627: '#include "Player.h"': 미리 컴파일된 헤더 사용을 찾을 때 건너뛰었습니다.
+                 'stdafx.h'에 지시문 추가 또는 미리 컴파일된 헤더 다시 빌드
+     1>d:\arenafight\client\client\player.cpp(416): fatal error C1010: 미리 컴파일된 헤더를 찾는 동안 예기치 않은 파일의 끝이 나타났습니다. '#include "stdafx.h"'을(를) 소스에 추가하시겠습니까?
+         Object.cpp
+     1>d:\arenafight\client\client\object.cpp(45): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
+     1>d:\arenafight\client\client\object.cpp(48): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
+     1>d:\arenafight\client\client\object.cpp(61): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
+     1>d:\arenafight\client\client\object.cpp(64): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
+     1>d:\arenafight\client\client\object.cpp(254): warning C4172: 지역 변수 또는 임시 변수의 주소를 반환하고 있습니다.
+         GameFramework.cpp
+     1>d:\arenafight\client\client\scene.h(55): error C2061: 구문 오류 : 식별자 'CCamera'
+     1>d:\arenafight\client\client\gameframework.cpp(196): error C2039: 'ChangeCamera' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\gameframework.cpp(231): error C2065: 'CCamera' : 선언되지 않은 식별자입니다.
+     1>d:\arenafight\client\client\gameframework.cpp(231): error C2065: 'pCamera' : 선언되지 않은 식별자입니다.
+     1>d:\arenafight\client\client\gameframework.cpp(231): error C2039: 'GetCamera' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\gameframework.cpp(232): error C2065: 'pCamera' : 선언되지 않은 식별자입니다.
+     1>d:\arenafight\client\client\gameframework.cpp(232): error C2227: '->SetViewport' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
                  'unknown-type' 형식입니다.
-     1>d:\arenafight\client\client\player.cpp(50): error C2065: 'm_d3dxmtxWorld' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\player.cpp(50): error C2227: '->_12' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
+     1>d:\arenafight\client\client\gameframework.cpp(274): error C2065: 'CAirplanePlayer' : 선언되지 않은 식별자입니다.
+     1>d:\arenafight\client\client\gameframework.cpp(274): error C2065: 'pAirplanePlyer' : 선언되지 않은 식별자입니다.
+     1>d:\arenafight\client\client\gameframework.cpp(274): error C2061: 구문 오류 : 식별자 'CAirplanePlayer'
+     1>d:\arenafight\client\client\gameframework.cpp(276): error C2065: 'pAirplanePlyer' : 선언되지 않은 식별자입니다.
+     1>d:\arenafight\client\client\gameframework.cpp(276): error C2227: '->ChangeCamera' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
                  'unknown-type' 형식입니다.
-     1>d:\arenafight\client\client\player.cpp(51): error C2065: 'm_d3dxmtxWorld' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\player.cpp(51): error C2227: '->_13' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
+     1>d:\arenafight\client\client\gameframework.cpp(276): error C2065: 'SPACESHIP_CAMERA' : 선언되지 않은 식별자입니다.
+     1>d:\arenafight\client\client\gameframework.cpp(278): error C2065: 'CCamera' : 선언되지 않은 식별자입니다.
+     1>d:\arenafight\client\client\gameframework.cpp(278): error C2065: 'pCamera' : 선언되지 않은 식별자입니다.
+     1>d:\arenafight\client\client\gameframework.cpp(278): error C2065: 'pAirplanePlyer' : 선언되지 않은 식별자입니다.
+     1>d:\arenafight\client\client\gameframework.cpp(278): error C2227: '->GetCamera' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
                  'unknown-type' 형식입니다.
-     1>d:\arenafight\client\client\player.cpp(52): error C2065: 'm_d3dxmtxWorld' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\player.cpp(52): error C2227: '->_21' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
+     1>d:\arenafight\client\client\gameframework.cpp(279): error C2065: 'pCamera' : 선언되지 않은 식별자입니다.
+     1>d:\arenafight\client\client\gameframework.cpp(279): error C2227: '->SetViewport' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
                  'unknown-type' 형식입니다.
-     1>d:\arenafight\client\client\player.cpp(53): error C2065: 'm_d3dxmtxWorld' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\player.cpp(53): error C2227: '->_22' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
+     1>d:\arenafight\client\client\gameframework.cpp(280): error C2065: 'pCamera' : 선언되지 않은 식별자입니다.
+     1>d:\arenafight\client\client\gameframework.cpp(280): error C2227: '->GenerateProjectionMatrix' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
                  'unknown-type' 형식입니다.
-     1>d:\arenafight\client\client\player.cpp(54): error C2065: 'm_d3dxmtxWorld' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\player.cpp(54): error C2227: '->_23' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
+     1>d:\arenafight\client\client\gameframework.cpp(281): error C2065: 'pCamera' : 선언되지 않은 식별자입니다.
+     1>d:\arenafight\client\client\gameframework.cpp(281): error C2227: '->GenerateViewMatrix' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
                  'unknown-type' 형식입니다.
-     1>d:\arenafight\client\client\player.cpp(55): error C2065: 'm_d3dxmtxWorld' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\player.cpp(55): error C2227: '->_31' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
+     1>d:\arenafight\client\client\gameframework.cpp(284): error C2065: 'pAirplanePlyer' : 선언되지 않은 식별자입니다.
+     1>d:\arenafight\client\client\gameframework.cpp(284): error C2227: '->SetPosition' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
                  'unknown-type' 형식입니다.
-     1>d:\arenafight\client\client\player.cpp(56): error C2065: 'm_d3dxmtxWorld' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\player.cpp(56): error C2227: '->_32' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
-                 'unknown-type' 형식입니다.
-     1>d:\arenafight\client\client\player.cpp(57): error C2065: 'm_d3dxmtxWorld' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\player.cpp(57): error C2227: '->_33' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
-                 'unknown-type' 형식입니다.
-     1>d:\arenafight\client\client\player.cpp(58): error C2065: 'm_d3dxmtxWorld' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\player.cpp(58): error C2227: '->_41' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
-                 'unknown-type' 형식입니다.
-     1>d:\arenafight\client\client\player.cpp(59): error C2065: 'm_d3dxmtxWorld' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\player.cpp(59): error C2227: '->_42' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
-                 'unknown-type' 형식입니다.
-     1>d:\arenafight\client\client\player.cpp(60): error C2065: 'm_d3dxmtxWorld' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\player.cpp(60): error C2227: '->_43' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
-                 'unknown-type' 형식입니다.
-     1>d:\arenafight\client\client\player.cpp(287): error C2065: 'm_pShader' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\player.cpp(289): error C2065: 'm_pShader' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\player.cpp(289): error C2227: '->UpdateShaderVariables' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
-                 'unknown-type' 형식입니다.
-     1>d:\arenafight\client\client\player.cpp(289): error C2065: 'm_d3dxmtxWorld' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\player.cpp(290): error C2065: 'm_pShader' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\player.cpp(290): error C2227: '->Render' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
-                 'unknown-type' 형식입니다.
-     1>d:\arenafight\client\client\player.cpp(292): error C2065: 'm_pMesh' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\player.cpp(292): error C2227: '->Render' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
-                 'unknown-type' 형식입니다.
+     1>d:\arenafight\client\client\gameframework.cpp(286): error C2065: 'pAirplanePlyer' : 선언되지 않은 식별자입니다.
+     1>d:\arenafight\client\client\gameframework.cpp(344): error C2039: 'Rotate' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\gameframework.cpp(346): error C2039: 'Rotate' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\gameframework.cpp(351): error C2039: 'Move' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\gameframework.cpp(355): error C2039: 'Update' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\gameframework.cpp(376): error C2065: 'CCamera' : 선언되지 않은 식별자입니다.
+     1>d:\arenafight\client\client\gameframework.cpp(376): error C2065: 'pCamera' : 선언되지 않은 식별자입니다.
+     1>d:\arenafight\client\client\gameframework.cpp(379): error C2039: 'UpdateShaderVariables' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\gameframework.cpp(380): error C2065: 'pCamera' : 선언되지 않은 식별자입니다.
+     1>d:\arenafight\client\client\gameframework.cpp(380): error C2039: 'GetCamera' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\gameframework.cpp(381): error C2065: 'pCamera' : 선언되지 않은 식별자입니다.
+     1>d:\arenafight\client\client\gameframework.cpp(383): error C2039: 'Render' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+         GameClient.cpp
+     1>d:\arenafight\client\client\scene.h(55): error C2061: 구문 오류 : 식별자 'CCamera'
+         Camera.cpp
+     1>d:\arenafight\client\client\camera.cpp(149): error C2039: 'GetRightVector' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\camera.cpp(149): error C2660: 'D3DXMatrixRotationAxis' : 함수는 2개의 매개 변수를 사용하지 않습니다.
+     1>d:\arenafight\client\client\camera.cpp(155): error C2039: 'GetPosition' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\camera.cpp(159): error C2039: 'GetPosition' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\camera.cpp(163): error C2039: 'GetUpVector' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\camera.cpp(163): error C2660: 'D3DXMatrixRotationAxis' : 함수는 2개의 매개 변수를 사용하지 않습니다.
+     1>d:\arenafight\client\client\camera.cpp(167): error C2039: 'GetPosition' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\camera.cpp(169): error C2039: 'GetPosition' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\camera.cpp(173): error C2039: 'GetLookVector' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\camera.cpp(173): error C2660: 'D3DXMatrixRotationAxis' : 함수는 2개의 매개 변수를 사용하지 않습니다.
+     1>d:\arenafight\client\client\camera.cpp(177): error C2039: 'GetPosition' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\camera.cpp(179): error C2039: 'GetPosition' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\camera.cpp(214): error C2039: 'GetUpVector' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\camera.cpp(214): error C2660: 'D3DXMatrixRotationAxis' : 함수는 2개의 매개 변수를 사용하지 않습니다.
+     1>d:\arenafight\client\client\camera.cpp(223): error C2039: 'GetLookVector' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\camera.cpp(223): error C2660: 'D3DXMatrixRotationAxis' : 함수는 2개의 매개 변수를 사용하지 않습니다.
+     1>d:\arenafight\client\client\camera.cpp(225): error C2039: 'GetPosition' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\camera.cpp(229): error C2039: 'GetPosition' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\camera.cpp(261): error C2039: 'GetRightVector' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\camera.cpp(262): error C2039: 'GetUpVector' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\camera.cpp(263): error C2039: 'GetLookVector' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\camera.cpp(272): error C2039: 'GetPosition' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\camera.cpp(294): error C2039: 'GetUpVector' : 'CPlayer'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\player.h(13) : 'CPlayer' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\camera.cpp(294): error C2660: 'D3DXMatrixLookAtLH' : 함수는 3개의 매개 변수를 사용하지 않습니다.
          코드를 생성하고 있습니다...
          컴파일하고 있습니다...
+         Shader.cpp
+         ResourceManager.cpp
          ObjectManager.cpp
-     1>d:\arenafight\client\client\objectmanager.cpp(18): error C2065: 'm_mShaders' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\objectmanager.cpp(18): error C2653: 'ShaderType' : 클래스 또는 네임스페이스 이름이 아닙니다.
-     1>d:\arenafight\client\client\objectmanager.cpp(18): error C2065: 'IlluminatedTextured' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\objectmanager.cpp(35): warning C4244: '인수' : 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-     1>d:\arenafight\client\client\objectmanager.cpp(38): error C2065: 'm_mShaders' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\objectmanager.cpp(38): error C2653: 'ShaderType' : 클래스 또는 네임스페이스 이름이 아닙니다.
-     1>d:\arenafight\client\client\objectmanager.cpp(38): error C2065: 'IlluminatedTextured' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\objectmanager.cpp(38): error C2227: '->InsertObject' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
-     1>d:\arenafight\client\client\objectmanager.cpp(49): error C2065: 'm_mShaders' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\objectmanager.cpp(49): error C2653: 'ShaderType' : 클래스 또는 네임스페이스 이름이 아닙니다.
-     1>d:\arenafight\client\client\objectmanager.cpp(49): error C2065: 'IlluminatedTextured' : 선언되지 않은 식별자입니다.
-     1>d:\arenafight\client\client\objectmanager.cpp(49): error C2227: '->InsertObject' 왼쪽은 클래스/구조체/공용 구조체/제네릭 형식을 가리켜야 합니다.
-     1>d:\arenafight\client\client\objectmanager.cpp(70): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
-     1>d:\arenafight\client\client\objectmanager.cpp(88): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
+     1>d:\arenafight\client\client\objectmanager.cpp(38): error C2039: 'SetPosition' : 'CObject'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\object.h(80) : 'CObject' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\objectmanager.cpp(52): error C2039: 'SetPosition' : 'CObject'의 멤버가 아닙니다.
+                 d:\arenafight\client\client\object.h(80) : 'CObject' 선언을 참조하십시오.
+     1>d:\arenafight\client\client\objectmanager.cpp(76): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
+     1>d:\arenafight\client\client\objectmanager.cpp(93): warning C4258: 'i' : for 루프의 정의가 무시되고 바깥쪽 범위의 정의가 사용됩니다.
+                 d:\arenafight\client\client\objectmanager.cpp(82) : 'i' 정의가 무시됩니다.
+                 d:\arenafight\client\client\objectmanager.cpp(76) : 'i' 정의가 사용됩니다.
+     1>d:\arenafight\client\client\objectmanager.cpp(94): warning C4258: 'i' : for 루프의 정의가 무시되고 바깥쪽 범위의 정의가 사용됩니다.
+                 d:\arenafight\client\client\objectmanager.cpp(82) : 'i' 정의가 무시됩니다.
+                 d:\arenafight\client\client\objectmanager.cpp(76) : 'i' 정의가 사용됩니다.
+     1>d:\arenafight\client\client\objectmanager.cpp(113): warning C4018: '<' : signed 또는 unsigned가 일치하지 않습니다.
          코드를 생성하고 있습니다...
      1>"D:\ArenaFight\Client\Client\LabProject09.vcxproj" 프로젝트를 빌드했습니다(Build 대상). - 실패
 
 빌드하지 못했습니다.
 
-경과 시간: 00:00:01.95
+경과 시간: 00:00:00.62
