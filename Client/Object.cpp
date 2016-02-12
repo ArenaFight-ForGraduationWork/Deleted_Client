@@ -189,6 +189,13 @@ void CObject::MoveAbsolute(const D3DXVECTOR3 *d3dxVec)
 	m_d3dxmtxWorld->_42 = d3dxVec->y;
 	m_d3dxmtxWorld->_43 = d3dxVec->z;
 }
+void CObject::MoveForward(const float fDistance)
+{
+	D3DXVECTOR3 d3dxvPosition = GetPosition();
+	D3DXVECTOR3 d3dxvLookAt = GetLookAt();
+	d3dxvPosition += fDistance * d3dxvLookAt;
+	MoveAbsolute(&d3dxvPosition);
+}
 
 void CObject::RotateRelative(const float fPitch, const float fYaw, const float fRoll)
 {
@@ -238,6 +245,33 @@ void CObject::RotateAbsolute(const D3DXVECTOR3 *pd3dxvAxis, const float fAngle)
 	// 2) fPitch, fYaw, fRoll로 회전하기
 	RotateRelative(pd3dxvAxis, fAngle);
 }
+void CObject::RotateAbsolute(D3DXVECTOR3 *pRight, D3DXVECTOR3 *pUp, D3DXVECTOR3 *pLookAt)
+{
+	// LookAt벡터를 기준으로 세 축이 서로 직교하게 만들자
+
+	// 1) LookAt벡터를 단위벡터화
+	D3DXVec3Normalize(pLookAt, pLookAt);
+
+	// 2) LookAt벡터와 Up벡터를 외적하여 Right벡터 계산+단위벡터화
+	D3DXVec3Cross(pRight, pUp, pLookAt);
+	D3DXVec3Normalize(pRight, pRight);
+
+	// 3) LookAt벡터와 Right벡터를 외적하여 Up벡터 계산+단위벡터화
+	D3DXVec3Cross(pUp, pLookAt, pRight);
+	D3DXVec3Normalize(pUp, pUp);
+
+	// 4) Right, Up, LookAt벡터를 이용하여 월드변환행렬 재배열
+	m_d3dxmtxWorld->_11 = pRight->x;
+	m_d3dxmtxWorld->_12 = pRight->y;
+	m_d3dxmtxWorld->_13 = pRight->z;
+	m_d3dxmtxWorld->_21 = pUp->x;
+	m_d3dxmtxWorld->_22 = pUp->y;
+	m_d3dxmtxWorld->_23 = pUp->z;
+	m_d3dxmtxWorld->_31 = pLookAt->x;
+	m_d3dxmtxWorld->_32 = pLookAt->y;
+	m_d3dxmtxWorld->_33 = pLookAt->z;
+}
+
 
 const D3DXMATRIX* CObject::_GetRotationMatrix()
 {
@@ -289,11 +323,3 @@ void CObject::Render(ID3D11DeviceContext *pd3dDeviceContext)
 //	CObject::MoveAbsolute(d3dxvPosition);
 //}
 //
-///* 로컬 z축 방향으로 이동한다 */
-//void CObject::MoveForward(float fDistance)
-//{
-//	D3DXVECTOR3 d3dxvPosition = GetPosition();
-//	D3DXVECTOR3 d3dxvLookAt = GetLookAt();
-//	d3dxvPosition += fDistance * d3dxvLookAt;
-//	CObject::MoveAbsolute(d3dxvPosition);
-//}

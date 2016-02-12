@@ -1,8 +1,14 @@
 #include "Player.h"
 
+
+
+
+
 CPlayer::CPlayer()
 {
 	m_pObject = nullptr;
+
+	m_fSpeed = 100;
 }
 
 CPlayer::~CPlayer()
@@ -19,40 +25,80 @@ void CPlayer::ReleaseObject()
 	m_pObject = nullptr;
 }
 
+void CPlayer::Move(const D3DXVECTOR3 *pCameraPitchYawRoll, const DWORD dwDirection, const float fTimeElapsed)
+{
+	// 1) 카메라와 같은 방향을 보도록 회전
+	D3DXVECTOR3 d3dxvDirection = D3DXVECTOR3(0, pCameraPitchYawRoll->y, 0);
+	m_pObject->RotateAbsolute(&d3dxvDirection);
+
+	// 2) 입력받은 방향에 따라 해당 방향으로 회전
+	D3DXVECTOR3 d3dxvRight, d3dxvUp, d3dxvLookAt;
+	d3dxvLookAt = D3DXVECTOR3(0, 0, 0);
+	if (dwDirection)	// 이동해야할 방향 = LookAt벡터
+	{
+		if (dwDirection & DIR_FORWARD)	d3dxvLookAt += m_pObject->GetLookAt();
+		if (dwDirection & DIR_BACKWARD)	d3dxvLookAt -= m_pObject->GetLookAt();
+		if (dwDirection & DIR_LEFT)		d3dxvLookAt -= m_pObject->GetRight();
+		if (dwDirection & DIR_RIGHT)	d3dxvLookAt += m_pObject->GetRight();
+	}
+	d3dxvUp = D3DXVECTOR3(0, 1, 0);
+	D3DXVec3Cross(&d3dxvRight, &d3dxvUp, &d3dxvLookAt);	// Right벡터는 Up벡터와 LookAt벡터를 외적하여 계산
+	D3DXVec3Normalize(&d3dxvRight, &d3dxvRight);
+
+	m_pObject->RotateAbsolute(&d3dxvRight, &d3dxvUp, &d3dxvLookAt);
+
+	// 3) 로컬 z축으로 속도 * 시간만큼 이동
+	m_pObject->MoveForward(m_fSpeed * fTimeElapsed);
+}
+
 void CPlayer::MoveRelative(const float x, const float y, const float z)
 {
-	m_pObject->MoveStrafe(x);
-	m_pObject->MoveUp(y);
-	m_pObject->MoveForward(z);
+	if (m_pObject)
+		m_pObject->MoveRelative(x, y, z);
 }
-void CPlayer::MoveRelative(const D3DXVECTOR3 vec)
+void CPlayer::MoveRelative(const D3DXVECTOR3 *vec)
 {
-	m_pObject->MoveStrafe(vec.x);
-	m_pObject->MoveUp(vec.y);
-	m_pObject->MoveForward(vec.z);
+	if (m_pObject)
+		m_pObject->MoveRelative(vec);
 }
 void CPlayer::MoveAbsolute(const float x, const float y, const float z)
 {
-	m_pObject->SetPosition(x, y, z);
+	if (m_pObject)
+		m_pObject->MoveAbsolute(x, y, z);
 }
-void CPlayer::MoveAbsolute(const D3DXVECTOR3 vec)
+void CPlayer::MoveAbsolute(const D3DXVECTOR3 *vec)
 {
-	m_pObject->SetPosition(vec);
+	if (m_pObject)
+		m_pObject->MoveAbsolute(vec);
 }
 
-void CPlayer::RotateReleative(const float x, const float y, const float z)
+void CPlayer::RotateRelative(const float x, const float y, const float z)
 {
-	//m_pObject->Rotate()
+	if (m_pObject)
+		m_pObject->RotateRelative(x, y, z);
 }
-void CPlayer::RotateReleative(const D3DXVECTOR3 vec)
+void CPlayer::RotateRelative(const D3DXVECTOR3 *vec)
 {
+	if (m_pObject)
+		m_pObject->RotateRelative(vec);
 }
 void CPlayer::RotateAbsolute(const float x, const float y, const float z)
 {
+	if (m_pObject)
+		m_pObject->RotateAbsolute(x, y, z);
 }
-void CPlayer::RotateAbsolute(const D3DXVECTOR3 vec)
+void CPlayer::RotateAbsolute(const D3DXVECTOR3 *vec)
 {
+	if (m_pObject)
+		m_pObject->RotateAbsolute(vec);
 }
+
+
+
+
+
+
+
 
 
 

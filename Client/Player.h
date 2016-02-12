@@ -1,7 +1,7 @@
 #ifndef PLYAER_H_
 #define PLAYER_H_
 
-//#include "Timer.h"
+#include "Timer.h"
 #include "stdafx.h"
 #include "Object.h"
 
@@ -18,20 +18,25 @@ public:
 	void SetObject(CObject *pObject);
 	void ReleaseObject();
 
-	void MoveRelative(const float x, const float y, const float z);
-	void MoveRelative(const D3DXVECTOR3 vec);
-	void MoveAbsolute(const float x, const float y, const float z);
-	void MoveAbsolute(const D3DXVECTOR3 vec);
+	void Move(const D3DXVECTOR3 *pCameraPitchYawRoll, const DWORD dwDirection, const float fTimeElapsed);
 
-	void RotateReleative(const float x, const float y, const float z);
-	void RotateReleative(const D3DXVECTOR3 vec);
+	void MoveRelative(const float x, const float y, const float z);
+	void MoveRelative(const D3DXVECTOR3 *vec);
+	void MoveAbsolute(const float x, const float y, const float z);
+	void MoveAbsolute(const D3DXVECTOR3 *vec);
+
+	void RotateRelative(const float x, const float y, const float z);
+	void RotateRelative(const D3DXVECTOR3 *vec);
 	void RotateAbsolute(const float x, const float y, const float z);
-	void RotateAbsolute(const D3DXVECTOR3 vec);
+	void RotateAbsolute(const D3DXVECTOR3 *vec);
 
 protected:
 
 private:
 	CObject *m_pObject;
+
+	/* m/s */
+	float m_fSpeed;
 
 	// atk, def, hp, mp...
 };

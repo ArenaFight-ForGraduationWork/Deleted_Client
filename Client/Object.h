@@ -88,6 +88,9 @@ public:
 	void MoveRelative(const D3DXVECTOR3 *d3dxVec);
 	void MoveAbsolute(const float fx, const float fy, const float fz);
 	void MoveAbsolute(const D3DXVECTOR3 *d3dxVec);
+	/* 로컬 z축 방향으로 이동한다 */
+	void MoveForward(const float fDistance);
+
 
 	void RotateRelative(const float fPitch, const float fYaw, const float fRoll);
 	void RotateRelative(const D3DXVECTOR3 *d3dxVec);
@@ -95,6 +98,7 @@ public:
 	void RotateAbsolute(const float fPitch, const float fYaw, const float fRoll);
 	void RotateAbsolute(const D3DXVECTOR3 *d3dxVec);
 	void RotateAbsolute(const D3DXVECTOR3 *pd3dxvAxis, const float fAngle);
+	void RotateAbsolute(D3DXVECTOR3 *pRight, D3DXVECTOR3 *pUp, D3DXVECTOR3 *pLookAt);
 
 	D3DXVECTOR3 GetPosition();
 
