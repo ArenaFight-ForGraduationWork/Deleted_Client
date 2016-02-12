@@ -36,10 +36,10 @@ void CPlayer::Move(const D3DXVECTOR3 *pCameraPitchYawRoll, const DWORD dwDirecti
 	d3dxvLookAt = D3DXVECTOR3(0, 0, 0);
 	if (dwDirection)	// 이동해야할 방향 = LookAt벡터
 	{
-		if (dwDirection & DIR_FORWARD)	d3dxvLookAt += m_pObject->GetLookAt();
-		if (dwDirection & DIR_BACKWARD)	d3dxvLookAt -= m_pObject->GetLookAt();
-		if (dwDirection & DIR_LEFT)		d3dxvLookAt -= m_pObject->GetRight();
-		if (dwDirection & DIR_RIGHT)	d3dxvLookAt += m_pObject->GetRight();
+		if (dwDirection & DIR_FORWARD)	d3dxvLookAt += *(m_pObject->GetLookAt());
+		if (dwDirection & DIR_BACKWARD)	d3dxvLookAt -= *(m_pObject->GetLookAt());
+		if (dwDirection & DIR_LEFT)		d3dxvLookAt -= *(m_pObject->GetRight());
+		if (dwDirection & DIR_RIGHT)	d3dxvLookAt += *(m_pObject->GetRight());
 	}
 	d3dxvUp = D3DXVECTOR3(0, 1, 0);
 	D3DXVec3Cross(&d3dxvRight, &d3dxvUp, &d3dxvLookAt);	// Right벡터는 Up벡터와 LookAt벡터를 외적하여 계산
@@ -93,7 +93,16 @@ void CPlayer::RotateAbsolute(const D3DXVECTOR3 *vec)
 		m_pObject->RotateAbsolute(vec);
 }
 
+const D3DXVECTOR3* CPlayer::GetPosition()
+{
+	// 오브젝트가 있으면 해당 오브젝트의 위치를 반환하고, 없으면 원점을 반환한다
+	if (m_pObject)
+	{
+		return m_pObject->GetPosition();
+	}
 
+	return &D3DXVECTOR3(0, 0, 0);
+}
 
 
 

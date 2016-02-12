@@ -30,6 +30,8 @@ public:
 	void RotateAbsolute(const float x, const float y, const float z);
 	void RotateAbsolute(const D3DXVECTOR3 *vec);
 
+	const D3DXVECTOR3* GetPosition();
+
 protected:
 
 private:

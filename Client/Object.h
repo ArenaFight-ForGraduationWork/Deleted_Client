@@ -100,19 +100,19 @@ public:
 	void RotateAbsolute(const D3DXVECTOR3 *pd3dxvAxis, const float fAngle);
 	void RotateAbsolute(D3DXVECTOR3 *pRight, D3DXVECTOR3 *pUp, D3DXVECTOR3 *pLookAt);
 
-	D3DXVECTOR3 GetPosition();
+	const D3DXVECTOR3* GetPosition();
 
 	/* 객체의 로컬 x축 방향벡터를 반환한다 */
-	D3DXVECTOR3 GetRight();
+	const D3DXVECTOR3* GetRight();
 	/* 객체의 로컬 y축 방향벡터를 반환한다 */
-	D3DXVECTOR3 GetUp();
+	const D3DXVECTOR3* GetUp();
 	/* 객체의 로컬 z축 방향벡터를 반환한다 */
-	D3DXVECTOR3 GetLookAt();
+	const D3DXVECTOR3* GetLookAt();
 
 	///* 객체의 월드변환행렬을 설정한다 */
 	//void SetWorldMatrix(D3DXMATRIX* pMtx) { m_d3dxmtxWorld = *pMtx; }
 	/* 객체의 월드변환행렬을 반환한다 */
-	D3DXMATRIX* GetWorldMatrix() { return m_d3dxmtxWorld; }
+	const D3DXMATRIX* GetWorldMatrix() { return m_d3dxmtxWorld; }
 
 	void SetMesh(CMesh *pMesh);
 	CMesh* GetMesh() { return m_pMesh; }

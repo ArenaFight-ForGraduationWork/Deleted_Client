@@ -123,39 +123,39 @@ void CObject::SetTexture(CTexture *pTexture)
 	if (m_pTexture) m_pTexture->AddRef();
 }
 
-D3DXVECTOR3 CObject::GetPosition()
+const D3DXVECTOR3* CObject::GetPosition()
 {
-	return D3DXVECTOR3(m_d3dxmtxWorld->_41, m_d3dxmtxWorld->_42, m_d3dxmtxWorld->_43);
+	return &D3DXVECTOR3(m_d3dxmtxWorld->_41, m_d3dxmtxWorld->_42, m_d3dxmtxWorld->_43);
 }
 
-D3DXVECTOR3 CObject::GetLookAt()
+const D3DXVECTOR3* CObject::GetLookAt()
 {
 	D3DXVECTOR3 d3dxvLookAt(m_d3dxmtxWorld->_31, m_d3dxmtxWorld->_32, m_d3dxmtxWorld->_33);
 	D3DXVec3Normalize(&d3dxvLookAt, &d3dxvLookAt);
-	return(d3dxvLookAt);
+	return &d3dxvLookAt;
 }
 
-D3DXVECTOR3 CObject::GetUp()
+const D3DXVECTOR3* CObject::GetUp()
 {
 	D3DXVECTOR3 d3dxvUp(m_d3dxmtxWorld->_21, m_d3dxmtxWorld->_22, m_d3dxmtxWorld->_23);
 	D3DXVec3Normalize(&d3dxvUp, &d3dxvUp);
-	return(d3dxvUp);
+	return &d3dxvUp;
 }
 
-D3DXVECTOR3 CObject::GetRight()
+const D3DXVECTOR3* CObject::GetRight()
 {
 	D3DXVECTOR3 d3dxvRight(m_d3dxmtxWorld->_11, m_d3dxmtxWorld->_12, m_d3dxmtxWorld->_13);
 	D3DXVec3Normalize(&d3dxvRight, &d3dxvRight);
-	return(d3dxvRight);
+	return &d3dxvRight;
 }
 
 void CObject::MoveRelative(const float fx, const float fy, const float fz)
 {
-	D3DXVECTOR3 d3dxvPosition = GetPosition();
+	D3DXVECTOR3 d3dxvPosition = *GetPosition();
 
-	D3DXVECTOR3 d3dxvRight = GetRight();
-	D3DXVECTOR3 d3dxvUp = GetUp();
-	D3DXVECTOR3 d3dxvLookAt = GetLookAt();
+	D3DXVECTOR3 d3dxvRight = *GetRight();
+	D3DXVECTOR3 d3dxvUp = *GetUp();
+	D3DXVECTOR3 d3dxvLookAt = *GetLookAt();
 
 	d3dxvPosition += fx * d3dxvRight;
 	d3dxvPosition += fy * d3dxvUp;
@@ -165,11 +165,11 @@ void CObject::MoveRelative(const float fx, const float fy, const float fz)
 }
 void CObject::MoveRelative(const D3DXVECTOR3 *d3dxVec)
 {
-	D3DXVECTOR3 d3dxvPosition = GetPosition();
+	D3DXVECTOR3 d3dxvPosition = *GetPosition();
 
-	D3DXVECTOR3 d3dxvRight = GetRight();
-	D3DXVECTOR3 d3dxvUp = GetUp();
-	D3DXVECTOR3 d3dxvLookAt = GetLookAt();
+	D3DXVECTOR3 d3dxvRight = *GetRight();
+	D3DXVECTOR3 d3dxvUp = *GetUp();
+	D3DXVECTOR3 d3dxvLookAt = *GetLookAt();
 
 	d3dxvPosition += d3dxVec->x * d3dxvRight;
 	d3dxvPosition += d3dxVec->y * d3dxvUp;
@@ -191,8 +191,8 @@ void CObject::MoveAbsolute(const D3DXVECTOR3 *d3dxVec)
 }
 void CObject::MoveForward(const float fDistance)
 {
-	D3DXVECTOR3 d3dxvPosition = GetPosition();
-	D3DXVECTOR3 d3dxvLookAt = GetLookAt();
+	D3DXVECTOR3 d3dxvPosition = *GetPosition();
+	D3DXVECTOR3 d3dxvLookAt = *GetLookAt();
 	d3dxvPosition += fDistance * d3dxvLookAt;
 	MoveAbsolute(&d3dxvPosition);
 }
