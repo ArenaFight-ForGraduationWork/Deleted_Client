@@ -28,40 +28,34 @@ public:
 protected:
 	Type m_Mode;
 
-	D3DXVECTOR3 m_d3dxvPosition;
-
-	// 카메라의 로컬 x - 축(Right), y - 축(Up), z - 축(Look)을 나타내는 벡터이다.
-	D3DXVECTOR3 m_d3dxvRight;
-	D3DXVECTOR3 m_d3dxvUp;
-	D3DXVECTOR3 m_d3dxvLook;
-
-	/* x, y, z축으로 회전한 정도 */
-	D3DXVECTOR3 m_fPitchYawRoll;
+	//D3DXVECTOR3 *m_d3dxvPosition;
+	D3DXVECTOR3 *m_d3dxvPitchYawRoll;	/* x, y, z축으로 회전한 정도 */
 
 	//카메라가 바라보는 점(월드좌표계)을 나타내는 벡터이다.
-	D3DXVECTOR3 m_d3dxvLookAtWorld;
+	D3DXVECTOR3 *m_d3dxvLookAtWorld;
 	//플레이어와 카메라의 오프셋을 나타내는 벡터이다. 주로 3인칭 카메라에서 사용된다.
-	D3DXVECTOR3 m_d3dxvOffset;
+	D3DXVECTOR3 *m_d3dxvOffset;
 	//플레이어가 회전할 때 얼마만큼의 시간을 지연시킨 후 카메라를 회전시킬 것인가를 나타낸다.
 	float m_fTimeLag;
 
+	D3D11_VIEWPORT *m_d3dViewport;	/* 뷰포트 */
 
-	//카메라 변환 행렬과 투영 변환 행렬을 나타내는 멤버 변수를 선언한다.
-	D3DXMATRIX *m_d3dxmtxView;
-	D3DXMATRIX *m_d3dxmtxProjection;
+	D3DXMATRIX *m_d3dxmtxView;			/* 카메라 변환 행렬 */
+	D3DXMATRIX *m_d3dxmtxProjection;	/* 투영변환행렬 */
 
-	//뷰-포트를 나타내는 멤버 변수를 선언한다.
-	D3D11_VIEWPORT m_d3dViewport;
-
-	//카메라 변환 행렬과 투영 변환 행렬을 위한 상수 버퍼 인터페이스 포인터를 선언한다.
-	ID3D11Buffer *m_pd3dcbViewProjection;
-	ID3D11Buffer *m_pd3dcbCamera;
+	ID3D11Buffer *m_pd3dcbViewProjection;	/* 카메라 변환행렬을 위한 상수버퍼 인터페이스 포인터*/
+	ID3D11Buffer *m_pd3dcbCamera;			/* 투영변환행렬을 위한 상수버퍼 인터페이스 포인터 */
 
 private:
+	const D3DXVECTOR3& GetPosition();
 	const D3DXVECTOR3& GetRight();
 	const D3DXVECTOR3& GetUp();
 	const D3DXVECTOR3& GetLookAt();
 };
+
+
+
+
 
 //class CCamera
 //{

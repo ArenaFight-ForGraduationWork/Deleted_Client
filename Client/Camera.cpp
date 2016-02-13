@@ -5,13 +5,39 @@
 
 
 
+CCamera::CCamera()
+{
+	m_Mode = Type::THIRD_PERSON_CAMERA;	/* 디폴트 아무거나. 현재는 3인칭 카메라 */
 
+	m_d3dxvPitchYawRoll = new D3DXVECTOR3(0, 0, 0);
+
+	m_d3dxvLookAtWorld = new D3DXVECTOR3(0, 0, 0);
+	m_d3dxvOffset = new D3DXVECTOR3(0, 0, 0);
+	m_fTimeLag = 0.0f;
+
+	//m_d3dViewport =		>> SetViewport();
+
+	m_d3dxmtxView = new D3DXMATRIX();
+	D3DXMatrixIdentity(m_d3dxmtxView);
+	m_d3dxmtxProjection = new D3DXMATRIX();
+	D3DXMatrixIdentity(m_d3dxmtxProjection);
+
+	//ID3D11Buffer *m_pd3dcbViewProjection;	/* 카메라 변환행렬을 위한 상수버퍼 인터페이스 포인터*/
+	//ID3D11Buffer *m_pd3dcbCamera;			/* 투영변환행렬을 위한 상수버퍼 인터페이스 포인터 */
+}
+CCamera::~CCamera()
+{
+}
+
+const D3DXVECTOR3& CCamera::GetPosition()
+{
+	return D3DXVECTOR3(m_d3dxmtxView->_41, m_d3dxmtxView->_42, m_d3dxmtxView->_43);
+}
 const D3DXVECTOR3& CCamera::GetRight()
 {
 	D3DXVECTOR3 d3dxvRight(m_d3dxmtxView->_11, m_d3dxmtxView->_12, m_d3dxmtxView->_13);
 	D3DXVec3Normalize(&d3dxvRight, &d3dxvRight);
 	return d3dxvRight;
-
 }
 const D3DXVECTOR3& CCamera::GetUp()
 {
@@ -26,27 +52,6 @@ const D3DXVECTOR3& CCamera::GetLookAt()
 	return d3dxvRight;
 }
 
-
-//const D3DXVECTOR3* CObject::GetLookAt()
-//{
-//	D3DXVECTOR3 d3dxvLookAt(m_d3dxmtxWorld->_31, m_d3dxmtxWorld->_32, m_d3dxmtxWorld->_33);
-//	D3DXVec3Normalize(&d3dxvLookAt, &d3dxvLookAt);
-//	return &d3dxvLookAt;
-//}
-//
-//const D3DXVECTOR3* CObject::GetUp()
-//{
-//	D3DXVECTOR3 d3dxvUp(m_d3dxmtxWorld->_21, m_d3dxmtxWorld->_22, m_d3dxmtxWorld->_23);
-//	D3DXVec3Normalize(&d3dxvUp, &d3dxvUp);
-//	return &d3dxvUp;
-//}
-//
-//const D3DXVECTOR3* CObject::GetRight()
-//{
-//	D3DXVECTOR3 d3dxvRight(m_d3dxmtxWorld->_11, m_d3dxmtxWorld->_12, m_d3dxmtxWorld->_13);
-//	D3DXVec3Normalize(&d3dxvRight, &d3dxvRight);
-//	return &d3dxvRight;
-//}
 
 //
 //CCamera::CCamera(CCamera *pCamera)
